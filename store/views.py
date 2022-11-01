@@ -4,7 +4,11 @@ from .forms import StoreForm, CommentForm
 
 # Create your views here.
 def index(request):
-    return render(request, 'store/index.html')
+    stores = Store.objects.all()
+    context = {
+        'stores':stores
+    }
+    return render(request, 'store/index.html', context)
 
 def create(request):
     if request.method =='POST':
