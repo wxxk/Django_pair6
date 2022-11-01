@@ -21,14 +21,18 @@ def create(request):
     else:
         store_form = StoreForm()
     context = {
-        'store_form' : store_form
+        'store_form' : store_form,
     }
     return render(request, 'store/create.html', context)
 
 def detail(request, pk):
     store = Store.objects.get(pk=pk)
+    comments = store.comment_set.all()
+    comment_form = CommentForm()
     context = {
-        'store':store
+        'store':store,
+        'comments':comments,
+        'comment_form':comment_form,
     }
     return render(request, "store/detail.html", context)
 
@@ -42,7 +46,7 @@ def update(request, pk):
     else:
         store_form = StoreForm(instance=store)
     context = {
-        'store_form':store_form
+        'store_form':store_form,
     }
     return render(request, 'store/update.html', context)
 
@@ -50,3 +54,15 @@ def delete(request, pk):
     store = Store.objects.get(pk=pk)
     store.delete()
     return redirect('store:index')
+
+def comment_create(request, pk):
+    if request.user.is_authenticated:
+        store = Store.objects.get(pk=pk)
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.store = store
+            comment.user = request.user
+            comment.save()
+
+            return redirect('store:detail', pk)
