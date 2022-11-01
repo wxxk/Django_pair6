@@ -14,7 +14,9 @@ def create(request):
     if request.method =='POST':
         store_form = StoreForm(request.POST, request.FILES)
         if store_form.is_valid():
-            store_form.save()
+            store = store_form.save(commit=False)
+            store.user = request.user
+            store.save()
             return redirect('store:index')
     else:
         store_form = StoreForm()
@@ -44,3 +46,7 @@ def update(request, pk):
     }
     return render(request, 'store/update.html', context)
 
+def delete(request, pk):
+    store = Store.objects.get(pk=pk)
+    store.delete()
+    return redirect('store:index')
