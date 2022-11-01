@@ -1,11 +1,30 @@
 {% extends 'base.html' %}
 
 {% block body %}
+  <!-- 개인정보 -->
   <p>{{profile.username}}</p>
   <p>{{profile.last_name}}{{profile.first_name}}</p>
   <p>{{profile.email}}</p>
   <img src="{{ profile.image.url }}" alt="profil">
-  <br>
+  <div>
+    <p>팔로잉 :
+      {{ profile.followings.all|length }}</p>
+    <p>팔로워 :
+      {{ profile.followers.all|length }}</p>
+  </div>
+
+  <!-- 팔로우 -->
+  {% if request.user != profile %}
+    <form action="{% url 'accounts:follow' profile.pk %}" method="POST">
+      {% csrf_token %}
+      {% if request.user in profile.followers.all %}
+        <input type="submit" value="Unfollow">
+      {% else %}
+        <input type="submit" value="Follow">
+      {% endif %}
+    </form>
+  {% endif %}
+
   <a href="{% url 'accounts:update' %}">회원정보수정</a>
   <a href="{% url 'accounts:delete' %}">삭제</a>
 
