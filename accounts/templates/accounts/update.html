@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <h1>UPDATE</h1>
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <a href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
+    <input type="submit">
+  </form>
+{% endblock body %}
