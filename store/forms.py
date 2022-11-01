@@ -5,7 +5,7 @@ class StoreForm(forms.ModelForm):
 
     class Meta:
         model = Store
-        fields = ['title', 'content','cost']
+        fields = ['title', 'content','buysell','cost','image','thumbnail']
 
 class CommentForm(forms.ModelForm):
 
