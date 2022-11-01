@@ -21,6 +21,7 @@
       {{ comment.user.username }}
       {{ comment.content }}
     </p>
+    <a href="{% url 'store:comment_delete' store.pk comment.pk %}">삭제</a>
   {% endfor %}
 
 {% endblock body %}

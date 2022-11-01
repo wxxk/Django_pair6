@@ -66,3 +66,12 @@ def comment_create(request, pk):
             comment.save()
 
             return redirect('store:detail', pk)
+
+def comment_delete(request, store_pk, comment_pk):
+    store = Store.objects.get(pk=store_pk)
+    comment = Comment.objects.get(pk=comment_pk)
+    if request.user.pk == comment.user.pk:
+        comment.delete()
+        return redirect('store:detail', store.pk)
+    else:
+        return redirect('store:detail', store.pk)
