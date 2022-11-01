@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 {% block body %}
   <h1>detail페이지</h1>
   <p>{{store.title}}</p>
@@ -7,5 +8,20 @@
   <p>{{store.updated_at}}</p>
   <p>{{store.buysell}}</p>
   <p>{{store.cost}}</p>
+
+  <h1>댓글 생성</h1>
+  <form action="{% url 'store:comment_create' store.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form comment_form %}
+    <button type="submit">제출</button>
+  </form>
+
+  {% for comment in comments %}
+    <p>
+      {{ comment.user.username }}
+      {{ comment.content }}
+    </p>
+    <a href="{% url 'store:comment_delete' store.pk comment.pk %}">삭제</a>
+  {% endfor %}
 
 {% endblock body %}
