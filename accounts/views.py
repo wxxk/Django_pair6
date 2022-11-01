@@ -78,3 +78,9 @@ def change_password(request):
         "form": form,
     }
     return render(request, "accounts/change_password.html", context)
+
+
+def delete(request):
+    request.user.delete()
+    auth_logout(request)
+    return render(request, "accounts/index.html")
