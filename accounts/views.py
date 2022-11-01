@@ -12,6 +12,8 @@ from django.contrib.auth import login as auth_login
 # 로그아웃
 from django.contrib.auth import logout as auth_logout
 
+# 좋아요 비동기
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -99,6 +101,13 @@ def follow(request, user_pk):
     if user != request.user:
         if user.followers.filter(pk=request.user.pk).exists():
             user.followers.remove(request.user)
+            is_followed = False
         else:
             user.followers.add(request.user)
-    return redirect("accounts:profile", user.pk)
+            is_followed = True
+        context = {
+            "is_followed": is_followed,
+            "followers_count": user.followers.count(),
+            "followings_count": user.followings.count(),
+        }
+        return JsonResponse(context)
