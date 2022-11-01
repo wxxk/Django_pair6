@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import get_user_model
 
 # 회원가입, 회원정보수정
 from .forms import CustomUserCreationForm, CustomUserChangeForm
@@ -51,9 +52,15 @@ def logout(request):
     return redirect("accounts:index")
 
 
+def profile(request, pk):
+    profile = get_user_model().objects.get(pk=pk)
+    context = {"profile": profile}
+    return render(request, "accounts/profile.html", context)
+
+
 def update(request):
     if request.method == "POST":
-        form = CustomUserChangeForm(data=request.POST, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
             return redirect("accounts:index")
