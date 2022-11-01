@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <p>{{profile.username}}</p>
+  <p>{{profile.last_name}}{{profile.first_name}}</p>
+  <p>{{profile.email}}</p>
+  <img src="{{ profile.image.url }}" alt="profil">
+  <br>
+  <a href="{% url 'accounts:update' %}">회원정보수정</a>
+  <a href="{% url 'accounts:delete' %}">삭제</a>
+
+{% endblock body %}
