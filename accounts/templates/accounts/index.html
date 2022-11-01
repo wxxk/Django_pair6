@@ -9,11 +9,8 @@
   </head>
 
   <body>
-    <form action="" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p}}
-      <input type="submit">
-    </form>
+    <h1>index</h1>
+    <a href="{% url 'accounts:signup' %}">111</a>
   </body>
 
 </html>
