@@ -22,3 +22,25 @@ def create(request):
         'store_form' : store_form
     }
     return render(request, 'store/create.html', context)
+
+def detail(request, pk):
+    store = Store.objects.get(pk=pk)
+    context = {
+        'store':store
+    }
+    return render(request, "store/detail.html", context)
+
+def update(request, pk):
+    store = Store.objects.get(pk=pk)
+    if request.method == 'POST':
+        store_form = StoreForm(request.POST, request.FILES, instance=store)
+        if store_form.is_valid():
+            store_form.save()
+            return redirect('store:detail', pk)
+    else:
+        store_form = StoreForm(instance=store)
+    context = {
+        'store_form':store_form
+    }
+    return render(request, 'store/update.html', context)
+
