@@ -17,15 +17,15 @@ class Store(models.Model):
                                 processors=[ResizeToFill(100, 100)],
                                 format='JPEG',
                                 options={'quality': 80})
-    like_user = models.ManyToManyField(get_user_model(), related_name='like_store')
     buysell = models.BooleanField(default=False, null = True)
     cost = models.IntegerField()
-    # user = models.ManyToManyField(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    like_user = models.ManyToManyField(get_user_model(), related_name='like_store')
 
 class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
-    # user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     
