@@ -1,3 +1,4 @@
+from email.policy import default
 from django.db import models
 from django.contrib.auth import get_user_model
 from imagekit.models import ProcessedImageField
@@ -17,8 +18,8 @@ class Store(models.Model):
                                 format='JPEG',
                                 options={'quality': 80})
     like_user = models.ManyToManyField(get_user_model(), related_name='like_store')
-    buysell = models.BooleanField()
-    coast = models.IntegerField()
+    buysell = models.BooleanField(default=False, null = True)
+    cost = models.IntegerField()
     # user = models.ManyToManyField(get_user_model(), on_delete=models.CASCADE)
 
 class Comment(models.Model):
