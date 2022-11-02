@@ -16,7 +16,7 @@
       <div class="card-body">
         <div class="d-flex justify-content-center">
           <div class="me-3">
-            <img class="profile-img rounded-circle" src="{{ profile.image.url }}" alt="" style="width:100px; height: 100px;">
+            <img class="profile-img border border-3 border-warning rounded-circle" src="{{ profile.image.url }}" alt="" style="width:100px; height: 100px;">
           </div>
           <div class="">
             <h5 class="card-title">이름:
@@ -38,7 +38,7 @@
               <div class="card w-auto h-auto mt-3">
                 <div class="card-body">
                   <h4 class="card-title mb-5 text-center fw-bold">작성한글</h4>
-                  {% for store in stores %}
+                  {% for store in store_page %}
                     <div class="hover d-flex justify-content-between">
                       <p>{{ store.pk }}번
                         <a class="ellipsis card-text" href="{% url 'store:detail' store.pk %}">{{ store.title }}</a>
@@ -48,19 +48,77 @@
                     <hr>
                   {% endfor %}
                 </div>
+                <div class="row mt-2">
+                  <div class="col-12">
+                    <nav>
+                      <ul class="pagination justify-content-center">
+                        {% if store_page.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?q={{store_page.previous_page_number}}">이전으로</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <a class="page-link" href="#">이전으로</a>
+                          </li>
+                        {% endif %}
+                        <li class="page-item">
+                          <a class="page-link" href="#">{{store_page.number}}/{{store_page.paginator.num_pages}}</a>
+                        </li>
+                        {% if store_page.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?q={{store_page.next_page_number}}">다음으로</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <a class="page-link" href="#">다음으로</a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-6 h-100">
               <div class="card w-auto h-auto mt-3">
                 <div class="card-body">
                   <h4 class="card-title mb-5 text-center fw-bold">작성한 댓글</h4>
-                  {% for comment in comments %}
+                  {% for comment in comments_page %}
                     <div class="hover d-flex justify-content-between">
                       <a class="ellipsis card-text" href="{% url 'store:detail' comment.store.pk %}">{{ comment.content }}</a>
                       <p class='mx-2 my-0'>{{ comment.created_at }}</p>
                     </div>
                     <hr>
                   {% endfor %}
+                </div>
+                <div class="row mt-2">
+                  <div class="col-12">
+                    <nav>
+                      <ul class="pagination justify-content-center">
+                        {% if comments_page.has_previous %}
+                          <li class="page-item">
+                            <a class="page-link" href="?p={{comments_page.previous_page_number }}">이전으로</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <a class="page-link" href="#">이전으로</a>
+                          </li>
+                        {% endif %}
+                        <li class="page-item">
+                          <a class="page-link" href="#">{{comments_page.number}}/{{comments_page.paginator.num_pages}}</a>
+                        </li>
+                        {% if comments_page.has_next %}
+                          <li class="page-item">
+                            <a class="page-link" href="?p={{comments_page.next_page_number }}">다음으로</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled">
+                            <a class="page-link" href="#">다음으로</a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </nav>
+                  </div>
                 </div>
               </div>
             </div>

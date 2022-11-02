@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import get_user_model
+from store.models import Store, Comment
 
 # 회원가입, 회원정보수정
 from .forms import CustomUserCreationForm, CustomUserChangeForm
@@ -14,6 +15,9 @@ from django.contrib.auth import logout as auth_logout
 
 # 좋아요 비동기
 from django.http import JsonResponse
+
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 def index(request):
@@ -56,10 +60,25 @@ def logout(request):
 
 def profile(request, pk):
     profile = get_user_model().objects.get(pk=pk)
+    comments = Comment.objects.filter(user=profile)
+    store = Store.objects.filter(user=profile)
+
+    q_page = request.GET.get("q")
+    user_store = store
+    store_data = Paginator(user_store, 5)
+    store_page = store_data.get_page(q_page)
+
+    p_page = request.GET.get("p")
+    user_comments = comments
+    comments_data = Paginator(user_comments, 5)
+    comments_page = comments_data.get_page(p_page)
+
     context = {
         "profile": profile,
         "stores": profile.store_set.all(),
         "comments": profile.comment_set.all(),
+        "comments_page": comments_page,
+        "store_page": store_page,
     }
     return render(request, "accounts/profile.html", context)
 
