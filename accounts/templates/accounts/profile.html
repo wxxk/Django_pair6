@@ -7,7 +7,8 @@
       <div class="card-header">
         <h3>{{ profile.username }}님의 페이지</h3>
       </div>
-      <div class="card-body">
+      <div class="card-body text-center">
+        <img src="{{ accounts.image.url }}" alt="">
         <h5 class="card-title">이름:
           {{ profile.last_name }}{{ profile.first_name }}</h5>
         <p class="card-text">이메일:
@@ -54,56 +55,77 @@
                 </form>
               {% else %}
                 <a class="btn border me-2" href="{% url 'accounts:update' %}">회원정보수정</a>
-                <a class="btn border me-2" href="{% url 'accounts:delete' %}">삭제</a>
-              </div>
-            {% endif %}
+                <button type="button" class="btn btn-outline-dark mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  탈퇴
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title m-0 fs-5" id="exampleModalLabel">정말 탈퇴하시겠습니까?</h1>
+                      </div>
+                      <div class="modal-body text-start">
+                        탈퇴된 계정은 복구할 수 없습니다.
+                      </div>
+                      <div class="modal-footer">
+                        <form action="{% url 'accounts:delete' %}" method="POST">
+                          {% csrf_token %}
+                          <input class='btn btn-outline-danger' type="submit" value='탈퇴'>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
           </div>
         </div>
+
       </div>
     </div>
-  </div>
 
-  <!-- script-->
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script>
-    const form = document.querySelector('#follow-form')
-    const csrftoken = document
-      .querySelector('[name=csrfmiddlewaretoken]')
-      .value
+    <!-- script-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const form = document.querySelector('#follow-form')
+      const csrftoken = document
+        .querySelector('[name=csrfmiddlewaretoken]')
+        .value
 
-      form
-      .addEventListener('submit', function (event) {
-        event.preventDefault()
+        form
+        .addEventListener('submit', function (event) {
+          event.preventDefault()
 
-        const userId = event
-          .target
-          .dataset
-          .userId
+          const userId = event
+            .target
+            .dataset
+            .userId
 
-          axios({
-            method: 'post',
-            url: `/accounts/${userId}/follow/`,
-            headers: {
-              'X-CSRFToken': csrftoken
-            }
-          })
-          .then((response) => {
-            const isFollowed = response.data.is_followed
-            const followBtn = document.querySelector('#follow-form > input[type=submit]')
-            if (isFollowed === true) {
-              followBtn.value = 'Unfollow'
-            } else {
-              followBtn.value = 'Follow'
-            }
-            const followersCountTag = document.querySelector('#followers-count')
-            const followingsCountTag = document.querySelector('#followings-count')
-            const followersCount = response.data.followers_count
-            const followingsCount = response.data.followings_count
+            axios({
+              method: 'post',
+              url: `/accounts/${userId}/follow/`,
+              headers: {
+                'X-CSRFToken': csrftoken
+              }
+            })
+            .then((response) => {
+              const isFollowed = response.data.is_followed
+              const followBtn = document.querySelector('#follow-form > input[type=submit]')
+              if (isFollowed === true) {
+                followBtn.value = 'Unfollow'
+              } else {
+                followBtn.value = 'Follow'
+              }
+              const followersCountTag = document.querySelector('#followers-count')
+              const followingsCountTag = document.querySelector('#followings-count')
+              const followersCount = response.data.followers_count
+              const followingsCount = response.data.followings_count
 
-            followersCountTag.innerText = followersCount
-            followingsCountTag.innerText = followingsCount
-          })
+              followersCountTag.innerText = followersCount
+              followingsCountTag.innerText = followingsCount
+            })
 
-      })
-  </script>
-{% endblock body %}
+        })
+    </script>
+  {% endblock body %}
