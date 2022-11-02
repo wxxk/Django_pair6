@@ -36,6 +36,7 @@ def detail(request, pk):
     store = Store.objects.get(pk=pk)
     comments = store.comment_set.all()
     comment_form = CommentForm()
+
     context = {
         "store": store,
         "comments": comments,
