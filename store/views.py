@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Store, Comment
 from .forms import StoreForm, CommentForm
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -22,7 +23,9 @@ def create(request):
     context = {
         "store_form": store_form,
     }
+
     return render(request, "store/form.html", context)
+
 
 
 def detail(request, pk):
@@ -52,6 +55,8 @@ def update(request, pk):
     return render(request, "store/form.html", context)
 
 
+
+
 def delete(request, pk):
     store = Store.objects.get(pk=pk)
     store.delete()
@@ -67,8 +72,12 @@ def comment_create(request, pk):
             comment.store = store
             comment.user = request.user
             comment.save()
+            context = {
+                "content": comment.content,
+                "userName": comment.user.username,
+            }
 
-            return redirect("store:detail", pk)
+            return JsonResponse(context)
 
 
 def comment_delete(request, store_pk, comment_pk):

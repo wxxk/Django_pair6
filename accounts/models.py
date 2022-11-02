@@ -8,7 +8,7 @@ from imagekit.processors import ResizeToFill
 
 class User(AbstractUser):
     image = ProcessedImageField(
-        upload_to="images/",
+        upload_to="image/",
         blank=True,
         processors=[ResizeToFill(400, 300)],
         format="JPEG",
