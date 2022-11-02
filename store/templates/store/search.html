@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+  <div class="container ">
+    <form class="d-flex" action="{% url 'store:search' %}">
+      {% csrf_token %}
+      <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">
+        Search
+      </button>
+    </form>
+    <div class="col-6 m-auto d-flex justify-content-center">
+      <div class="input-group m-3 border border-3">
+        <input type="text" class="form-control border-0" placeholder="검색" aria-label="Username" aria-describedby="basic-addon1">
+        <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="click" colors="primary:#121331,secondary:#08a88a" style="width:32px;height:32px"></lord-icon>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <a class="btn btn-secondary" href="{% url 'store:create' %}">게시글 작성</a>
+    </div>
+  </div>
+
+  <div class="mb-5 container">
+    <!-- 구매 -->
+    <h2 class="mb-5 fw-bold">구매 목록</h2>
+
+    <div class="container bg-danger bg-opacity-25">
+      <div class="row">
+        {% for store in search_list %}
+          {% if store.buysell == 1 %}
+            <div class="m-3 card col-2">
+              <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
+                <div class="image-box position-relative">
+                  <img class="img-fluid" src="{{ store.image.url }}" alt="">
+                  <span class="badge m-1 position-absolute bottom-0 end-0">
+                    <!-- 좋아요 구분해서 넣기-->
+                    <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
+                  </span>
+                </div>
+                <div class="card-body">
+                  <p><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
+                    <span>{{ store.title }}</span></p>
+                  <hr>
+                  <p>{{ store.content }}</p>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="mb-5 container">
+    <!-- 판매 -->
+    <h2 class="mb-5 fw-bold">판매 목록</h2>
+
+    <div class="container bg-success bg-opacity-25">
+      <div class="row">
+        {% for store in search_list %}
+          {% if store.buysell == 0 %}
+            <div class="m-3 card col-2">
+              <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
+                <div class="image-box position-relative">
+                  <img class="img-fluid" src="{{ store.image.url }}" alt="">
+                  <span class="badge m-1 position-absolute bottom-0 end-0">
+                    <!-- 좋아요 구분해서 넣기-->
+                    <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
+                  </span>
+                </div>
+                <div class="card-body">
+                  <p><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
+                    <span>{{ store.title }}</span></p>
+                  <hr>
+                  <p>{{ store.content }}</p>
+                </div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock body %}

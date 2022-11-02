@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Store, Comment
 from .forms import StoreForm, CommentForm
 from django.http import JsonResponse
+from django.db.models import Q
 
 # Create your views here.
 def index(request):
@@ -101,3 +102,18 @@ def like(request, pk):
     else:
         store.like_user.add(request.user)
     return redirect("store:detail", pk)
+
+
+def search(request):
+    all_data = Store.objects.all()
+    search = request.GET.get("search", "")
+
+    search_list = all_data.filter(
+        Q(title__icontains=search) | Q(content__icontains=search)
+    )
+
+    context = {
+        "search_list": search_list,
+    }
+
+    return render(request, "store/search.html", context)
