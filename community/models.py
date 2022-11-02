@@ -6,7 +6,7 @@ from imagekit.processors import ResizeToFill
 # Create your models here.
 from django.conf import settings
 
-class Store(models.Model):
+class Community(models.Model):
     title = models.CharField(max_length=10)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,15 +16,11 @@ class Store(models.Model):
                                 processors=[ResizeToFill(100, 100)],
                                 format='JPEG',
                                 options={'quality': 80})
-    buysell = models.BooleanField(default=False, null = True)
-    cost = models.IntegerField()
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    like_user = models.ManyToManyField(get_user_model(), related_name='like_store')
+    like_user = models.ManyToManyField(get_user_model(), related_name='like_community')
 
 class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    store = models.ForeignKey(Store, on_delete=models.CASCADE)
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-
-
+    community = models.ForeignKey(Community, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='user_community')

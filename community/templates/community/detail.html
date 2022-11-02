@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block body %}
+  <h1>detail페이지</h1>
+  <p>{{community.title}}</p>
+  <p>{{community.content}}</p>
+  <p>{{community.created_at}}</p>
+  <p>{{community.updated_at}}</p>
+  <p>{{community.buysell}}</p>
+  <p>{{community.cost}}</p>
+
+  <a href="{% url 'community:like' community.pk %}">
+
+    {% if request.user in community.like_user.all %}
+      ♥
+    {% else %}
+      ♡
+    {% endif %}
+
+  </a>
+
+  {{ community.like_user.count }}
+
+  <h1>댓글 생성</h1>
+  <form action="{% url 'community:comment_create' community.pk %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form comment_form %}
+    <button type="submit">제출</button>
+  </form>
+
+  {% for comment in comments %}
+    <p>
+      {{ comment.user.username }}
+      {{ comment.content }}
+    </p>
+    <a href="{% url 'community:comment_delete' community.pk comment.pk %}">삭제</a>
+  {% endfor %}
+
+{% endblock body %}

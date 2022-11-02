@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "accounts",
     "store",
+    "community",
     "imagekit",
     "django_bootstrap5",
     "django.contrib.admin",
