@@ -1,34 +1,67 @@
 {% extends 'base.html' %}
-
+{% load django_bootstrap5 %}
 {% block body %}
   <!-- 개인정보 -->
-  <p>{{profile.username}}</p>
-  <p>{{profile.last_name}}{{profile.first_name}}</p>
-  <p>{{profile.email}}</p>
-  <img src="{{ profile.image.url }}" alt="profil">
-  <div>
-    <p>팔로잉 :
-      <span id="followers-count">{{ profile.followings.all|length }}</p>
-    </span>
-    <p>팔로워 :
-      <span id="followings-count">{{ profile.followers.all|length }}</p>
-    </span>
+  <div class="container">
+    <div class="card h-auto">
+      <div class="card-header">
+        <h3>{{ profile.username }}님의 페이지</h3>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">이름:
+          {{ profile.last_name }}{{ profile.first_name }}</h5>
+        <p class="card-text">이메일:
+          {{ profile.email }}</p>
+        <div class="my-3">
+          팔로잉 :
+          <span id="followers-count">{{ profile.followings.all|length }}
+          </span>
+          | 팔로워 :
+          <span id="followings-count">{{ profile.followers.all|length }}
+          </span>
+          <div class="row">
+            <div class="col-6 h-100">
+              <div class="card w-auto h-auto mt-3">
+                <div class="card-body">
+                  <h5 class="card-title mb-4">작성한글</h5>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-6 h-100">
+              <div class="card w-auto h-auto mt-3">
+                <div class="card-body">
+                  <h5 class="card-title mb-4">작성한 댓글</h5>
+                  {% for comment in comments %}
+                    <div class="d-flex justify-content-between">
+                      <a class="ellipsis card-text" href="{% url 'reviews:detail' comment.review.pk %}">{{ comment.content }}</a>
+                      <p class='mx-2 my-0'>{{ comment.create_at }}</p>
+                    </div>
+                    <hr>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+              {% if request.user != profile %}
+                <form id="follow-form" data-user-id="{{ profile.pk }}">
+                  {% csrf_token %}
+                  {% if request.user in profile.followers.all %}
+                    <input class="btn border me-2" type="submit" value="Unfollow">
+                  {% else %}
+                    <input class="btn border me-2" type="submit" value="Follow">
+                  {% endif %}
+                </form>
+              {% else %}
+                <a class="btn border me-2" href="{% url 'accounts:update' %}">회원정보수정</a>
+                <a class="btn border me-2" href="{% url 'accounts:delete' %}">삭제</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!-- 팔로우 -->
-  {% if request.user != profile %}
-    <form id="follow-form" data-user-id="{{ profile.pk }}">
-      {% csrf_token %}
-      {% if request.user in profile.followers.all %}
-        <input type="submit" value="Unfollow">
-      {% else %}
-        <input type="submit" value="Follow">
-      {% endif %}
-    </form>
-  {% endif %}
-
-  <a href="{% url 'accounts:update' %}">회원정보수정</a>
-  <a href="{% url 'accounts:delete' %}">삭제</a>
 
   <!-- script-->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

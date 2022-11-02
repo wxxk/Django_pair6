@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% block css %}
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css %}
+
 {% block body %}
   <h1>index</h1>
   {% if request.user.is_authenticated %}
