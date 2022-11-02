@@ -16,7 +16,7 @@
       <div class="card-body">
         <div class="d-flex justify-content-center">
           <div class="me-3">
-            <img class="rounded-circle" src="{{ profile.image.url }}" alt="" style="width:100px; height: 100px;">
+            <img class="profile-img rounded-circle" src="{{ profile.image.url }}" alt="" style="width:100px; height: 100px;">
           </div>
           <div class="">
             <h5 class="card-title">이름:
@@ -39,8 +39,10 @@
                 <div class="card-body">
                   <h4 class="card-title mb-5 text-center fw-bold">작성한글</h4>
                   {% for store in stores %}
-                    <div class="d-flex justify-content-between">
-                      <a class="ellipsis card-text" href="{% url 'store:detail' store.pk %}">{{ store.title }}</a>
+                    <div class="hover d-flex justify-content-between">
+                      <p>{{ store.pk }}번
+                        <a class="ellipsis card-text" href="{% url 'store:detail' store.pk %}">{{ store.title }}</a>
+                      </p>
                       <p class='mx-2 my-0'>{{ store.created_at }}</p>
                     </div>
                     <hr>
@@ -53,7 +55,7 @@
                 <div class="card-body">
                   <h4 class="card-title mb-5 text-center fw-bold">작성한 댓글</h4>
                   {% for comment in comments %}
-                    <div class="d-flex justify-content-between">
+                    <div class="hover d-flex justify-content-between">
                       <a class="ellipsis card-text" href="{% url 'store:detail' comment.store.pk %}">{{ comment.content }}</a>
                       <p class='mx-2 my-0'>{{ comment.created_at }}</p>
                     </div>
