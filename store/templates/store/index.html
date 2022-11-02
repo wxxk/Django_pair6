@@ -3,9 +3,7 @@
 {% load static %}
 
 {% block css %}
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/store_index_style.css' %}">
 {% endblock css %}
 
 {% block body %}
@@ -16,65 +14,66 @@
     </div>
   </div>
 
-  <div class="mb-5 container swiper">
+  <div class="mb-5 container">
     <!-- 구매 -->
     <h2 class="mb-5 fw-bold">구매 목록</h2>
-    <div class="slide-container w-100 bg-secondary">
+    <div class="swiper slide-container">
       <div class="swiper-wrapper">
-        {% for store in stores %}
-          <div class="m-3 card swiper-slide">
-            <div class="image-box position-relative">
-              <img class="img-fluid" src="{{ store.image.url }}" alt="">
-              <span class="badge m-1 position-absolute bottom-0 end-0">
-                <!-- 좋아요 구분해서 넣기-->
-                <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
-              </span>
+        <div class="swiper-slide">
+          {% for store in stores %}
+            <div class="m-3 card col-2">
+              <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
+                <div class="image-box position-relative">
+                  <img class="img-fluid" src="{{ store.image.url }}" alt="">
+                  <span class="badge m-1 position-absolute bottom-0 end-0">
+                    <!-- 좋아요 구분해서 넣기-->
+                    <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
+                  </span>
+                </div>
+                <div class="card-body">
+                  <p><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
+                    <span>{{ store.title }}</span></p>
+                  <hr>
+                  <p>{{ store.content }}</p>
+                </div>
+              </a>
             </div>
-            <div class="card-body">
-              <p><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image">
-                <span>{{ store.title }}</span></p>
-              <hr>
-              <p>{{ store.content }}</p>
-            </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
-      <div class="swiper-button-next swiper-navBtn"></div>
-      <div class="swiper-button-prev swiper-navBtn"></div>
-      <div class="swiper-pagination"></div>
     </div>
   </div>
+
   <hr>
 
-  <div class="mb-5 container swiper">
+  <div class="mb-5 container">
     <!-- 판매 -->
     <h2 class="mb-5 fw-bold">판매 목록</h2>
-    <div class="slide-container w-100 bg-secondary">
+    <div class="swiper slide-container">
       <div class="swiper-wrapper">
-        {% for store in stores %}
-          <div class="m-3 card swiper-slide">
-            <div class="image-box position-relative">
-              <img class="img-fluid" src="{{ store.image.url }}" alt="">
-              <span class="badge m-1 position-absolute bottom-0 end-0">
-                <!-- 좋아요 구분해서 넣기-->
-                <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
-              </span>
+        <div class="swiper-slide">
+          {% for store in stores %}
+            <div class="m-3 card col-2">
+              <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
+                <div class="image-box position-relative">
+                  <img class="img-fluid" src="{{ store.image.url }}" alt="">
+                  <span class="badge m-1 position-absolute bottom-0 end-0">
+                    <!-- 좋아요 구분해서 넣기-->
+                    <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
+                  </span>
+                </div>
+                <div class="card-body">
+                  <p><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
+                    <span>{{ store.title }}</span></p>
+                  <hr>
+                  <p>{{ store.content }}</p>
+                </div>
+              </a>
             </div>
-            <div class="card-body">
-              <p><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image">
-                <span>{{ store.title }}</span></p>
-              <hr>
-              <p>{{ store.content }}</p>
-            </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
       </div>
-      <div class="swiper-button-next swiper-navBtn"></div>
-      <div class="swiper-button-prev swiper-navBtn"></div>
-      <div class="swiper-pagination"></div>
     </div>
   </div>
 
-  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-  <script src="{% static 'js/script.js' %}"></script>
 {% endblock body %}
