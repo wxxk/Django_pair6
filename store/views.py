@@ -75,3 +75,13 @@ def comment_delete(request, store_pk, comment_pk):
         return redirect('store:detail', store.pk)
     else:
         return redirect('store:detail', store.pk)
+
+def like(request, pk):
+    store = Store.objects.get(pk=pk)
+    # 좋아요 등록된 상태
+    if request.user in store.like_user.all():
+        store.like_user.remove(request.user)
+    # 좋아요 없는 상태
+    else:
+        store.like_user.add(request.user)
+    return redirect('store:detail', pk)
