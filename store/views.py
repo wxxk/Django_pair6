@@ -5,8 +5,12 @@ from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
-    stores = Store.objects.all()
-    context = {"stores": stores}
+    stores_buys = Store.objects.filter(buysell=True)
+    stores_sells = Store.objects.filter(buysell=False)
+    context = {
+        "stores_buys":stores_buys,
+        "stores_sells":stores_sells,
+    }
     return render(request, "store/index.html", context)
 
 

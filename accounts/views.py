@@ -56,7 +56,11 @@ def logout(request):
 
 def profile(request, pk):
     profile = get_user_model().objects.get(pk=pk)
-    context = {"profile": profile}
+    context = {
+        "profile": profile,
+        "stores": profile.store_set.all(),
+        "comments": profile.comment_set.all(),
+    }
     return render(request, "accounts/profile.html", context)
 
 
