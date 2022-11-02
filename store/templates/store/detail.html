@@ -9,6 +9,18 @@
   <p>{{store.buysell}}</p>
   <p>{{store.cost}}</p>
 
+  <a href="{% url 'store:like' store.pk %}">
+
+    {% if request.user in store.like_user.all %}
+      ♥
+    {% else %}
+      ♡
+    {% endif %}
+
+  </a>
+
+  {{ store.like_user.count }}
+
   <h1>댓글 생성</h1>
   <form action="{% url 'store:comment_create' store.pk %}" method="POST">
     {% csrf_token %}
