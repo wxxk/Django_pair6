@@ -5,9 +5,7 @@
   <div class="container">
     <div class="d-flex">
       <div class="col-6 p-0 d-flex flex-column align-items-center">
-        <div class="col-8 my-3 p-3 border border-3 bg-light">
-          <img class="img-fluid" src="{{ store.image.url }}" alt="">
-        </div>
+        <div class="col-8 my-3 p-3 border border-3 bg-light" style="height:400px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:contain;"></div>
 
         <div class="col-8 p-3 border border-3">
           <h2 class="text-decoration-underline">{{store.title}}</h2>
@@ -19,8 +17,16 @@
           <h3>{{store.content}}</h3>
           <hr>
           <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-danger">구매</button>
-            <button type="button" class="btn btn-success">판매</button>
+            {% if store.user == request.user %}
+              <a class="btn btn-warning m-2 w-100" href="{% url 'store:update' store.pk %}">수정</a>
+              <a class="btn btn-danger m-2 w-100" href="{% url 'store:delete' store.pk %}">삭제</a>
+            {% else %}
+              {% if store.buysell == True %}
+                <button type="button" class="btn btn-success w-100">판매</button>
+              {% else %}
+                <button type="button" class="btn btn-danger w-100">구매</button>
+              {% endif %}
+            {% endif %}
           </div>
         </div>
       </div>
