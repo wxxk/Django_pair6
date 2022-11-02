@@ -73,7 +73,7 @@
         console.log(event.target.dataset)
         axios({
           method: 'post',
-          url: `/store/${event.target.dataset.storeId}/comment/create`,
+          url: `/store/${event.target.dataset.storeId}/comment/create/`,
           headers: {
             'X-CSRFToken': csrftoken
           },
