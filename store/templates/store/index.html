@@ -7,10 +7,15 @@
 {% endblock css %}
 
 {% block body %}
-  <div class="col-4 m-auto">
-    <div class="input-group mb-3 border border-3">
-      <input type="text" class="form-control border-0" placeholder="검색" aria-label="Username" aria-describedby="basic-addon1">
-      <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="click" colors="primary:#121331,secondary:#08a88a" style="width:32px;height:32px"></lord-icon>
+  <div class="container ">
+    <div class="col-6 m-auto d-flex justify-content-center">
+      <div class="input-group m-3 border border-3">
+        <input type="text" class="form-control border-0" placeholder="검색" aria-label="Username" aria-describedby="basic-addon1">
+        <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="click" colors="primary:#121331,secondary:#08a88a" style="width:32px;height:32px"></lord-icon>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end">
+      <a class="btn btn-secondary" href="{% url 'store:create' %}">게시글 작성</a>
     </div>
   </div>
 
