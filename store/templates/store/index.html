@@ -25,7 +25,7 @@
     <div class="swiper slide-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          {% for store in stores %}
+          {% for store in stores_buys %}
             <div class="m-3 card col-2">
               <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
                 <div class="image-box position-relative">
@@ -57,7 +57,7 @@
     <div class="swiper slide-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
-          {% for store in stores %}
+          {% for store in stores_sells %}
             <div class="m-3 card col-2">
               <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
                 <div class="image-box position-relative">
