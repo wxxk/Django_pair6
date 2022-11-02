@@ -31,7 +31,6 @@ def create(request):
     return render(request, "store/form.html", context)
 
 
-
 def detail(request, pk):
     store = Store.objects.get(pk=pk)
     comments = store.comment_set.all()
@@ -59,8 +58,6 @@ def update(request, pk):
     return render(request, "store/form.html", context)
 
 
-
-
 def delete(request, pk):
     store = Store.objects.get(pk=pk)
     store.delete()
@@ -77,6 +74,8 @@ def comment_create(request, pk):
             comment.user = request.user
             comment.save()
             context = {
+                "comment": comment,
+                "comment_pk": comment.pk,
                 "content": comment.content,
                 "userName": comment.user.username,
             }
