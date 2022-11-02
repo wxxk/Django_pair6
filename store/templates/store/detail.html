@@ -43,19 +43,7 @@
           </div>
         </form>
 
-        <div id="comments">
-          {% for comment in comments %}
-            <div class="my-2 p-3 bg-light rounded-3">
-              <p class="d-flex fw-bold align-items-center">
-                {{ comment.user.username }}님
-                <a class="btn btn-outline-dark mx-2 py-0" href="{% url 'store:comment_delete' store.pk comment.pk %}">삭제</a>
-              </p>
-              <p class="m-0">
-                {{ comment.content }}
-              </p>
-            </div>
-          {% endfor %}
-        </div>
+        <div id="comments"></div>
       </div>
     </div>
   </div>
@@ -73,7 +61,7 @@
         console.log(event.target.dataset)
         axios({
           method: 'post',
-          url: `/store/${event.target.dataset.storeId}/comment/create`,
+          url: `/store/${event.target.dataset.storeId}/comment/create/`,
           headers: {
             'X-CSRFToken': csrftoken
           },
@@ -82,10 +70,23 @@
           console.log(response.data)
           //댓글 추가 로직
           const comments = document.querySelector('#comments')
-          const p = document.createElement('p')
-          p.innerText = `${response.data.userName} | ${response.data.content}`
-          const hr = document.createElement('hr')
-          comments.append(p, hr)
+          // const username = document.createElement('#username')
+          // const content = document.createElement('#content')
+          // username.innerText = `${response.data.userName}`
+          // content.innerText = `${response.data.content}`
+          // comments.append(username, content)
+          comments.insertAdjacentHTML('beforeend', `
+          <div class="my-2 p-3 bg-light rounded-3">
+            <p class="d-flex fw-bold align-items-center">
+              <span id="username">${response.data.userName}</span>님
+              <a class="btn btn-outline-dark mx-2 py-0" href="/store/${event.target.dataset}/${response.data.comment_pk}/delete/">삭제</a>
+            </p>
+            <p class="m-0" id="content">
+              ${response.data.content}
+            </p>
+          </div>
+          `)
+
           commentForm.reset()
         })
       })
