@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block body %}
+  <div class="container">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+
+      {% if request.resolver_match.url_name == 'create' %}
+        <h1>게시글 작성</h1>
+      {% else %}
+        <h1>게시글 수정</h1>
+      {% endif %}
+
+      <form class="col-8" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-floating my-3">
+          <input class="form-control" placeholder="title" id="floatingText" name="title"></input>
+          <label for="floatingText">제목</label>
+        </div>
+
+        <div class="row g-2 my-3">
+          <div class="col-md">
+            <div class="form-floating">
+              <input type="number" class="form-control" id="floatingInputGrid" placeholder="금액" name="cost">
+              <label for="floatingInputGrid">금액</label>
+            </div>
+          </div>
+          <div class="col-md">
+            <div class="form-floating">
+              <select class="form-select" id="floatingSelectGrid" name="buysell">
+                <option value="True">구매</option>
+                <option value="False">판매</option>
+              </select>
+              <label for="floatingSelectGrid">구매/판매</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-group my-3">
+          <label class="input-group-text" for="inputGroupFile01">Image</label>
+          <input type="file" class="form-control" id="inputGroupFile01" name="image">
+        </div>
+
+        <div class="input-group my-3">
+          <label class="input-group-text" for="inputGroupFile02">Thumbnail</label>
+          <input type="file" class="form-control" id="inputGroupFile02" name="thumbnail">
+        </div>
+
+        <div class="form-floating my-3">
+          <textarea class="form-control" placeholder="글 내용 작성" id="floatingTextarea" name="content"></textarea>
+          <label for="floatingTextarea">내용</label>
+        </div>
+
+        <div class="d-flex justify-content-end my-3">
+          <button class="btn btn-primary" type="submit">제출</button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock body %}
