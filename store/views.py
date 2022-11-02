@@ -23,7 +23,9 @@ def create(request):
     context = {
         "store_form": store_form,
     }
-    return render(request, "store/create.html", context)
+
+    return render(request, "store/form.html", context)
+
 
 
 def detail(request, pk):
@@ -50,7 +52,9 @@ def update(request, pk):
     context = {
         "store_form": store_form,
     }
-    return render(request, "store/update.html", context)
+    return render(request, "store/form.html", context)
+
+
 
 
 def delete(request, pk):
