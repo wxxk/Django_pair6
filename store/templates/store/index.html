@@ -31,24 +31,29 @@
     <h2 class="mb-5 fw-bold">구매 목록</h2>
 
     <div class="container bg-danger bg-opacity-25">
-      <div class="row">
+      <div class="row m-0 w-100 justify-content-center">
         {% for store in stores_buys %}
-          <div class="m-3 card col-2">
+          <div class="m-2 card col-xl-2 col-lg-3 col-md-4 col-6">
             <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
               <div class="image-box position-relative">
-                <img class="img-fluid" src="{{ store.image.url }}" alt="">
+                <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
                 <span class="badge m-1 position-absolute bottom-0 end-0">
                   <!-- 좋아요 구분해서 넣기-->
                   <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
                 </span>
               </div>
-              <div class="card-body">
-                <p><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
-                  <span>{{ store.title }}</span></p>
-                <hr>
-                <p>{{ store.content }}</p>
-              </div>
             </a>
+            <div class="card-body">
+              <a class="text-decoration-none text-black" href="{% url 'accounts:profile' store.user.pk %}">
+                <p class="d-flex align-items-center"><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
+                  <span class="ms-2 fs-6 fw-bold">{{ store.user.username }}</span></p>
+              </a>
+              <hr>
+              <div class="fw-bold" style="font-size:20px;">
+                <p class="m-0 fw-normal" style="font-size:12px;">제목</p>
+                <p>{{ store.title }}</p>
+              </div>
+            </div>
           </div>
         {% endfor %}
 
@@ -63,24 +68,29 @@
     <h2 class="mb-5 fw-bold">판매 목록</h2>
 
     <div class="container bg-success bg-opacity-25">
-      <div class="row">
+      <div class="row m-0 w-100 justify-content-center">
         {% for store in stores_sells %}
-          <div class="m-3 card col-2">
+          <div class="m-2 card col-xl-2 col-lg-3 col-md-4 col-6">
             <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
               <div class="image-box position-relative">
-                <img class="img-fluid" src="{{ store.image.url }}" alt="">
+                <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
                 <span class="badge m-1 position-absolute bottom-0 end-0">
                   <!-- 좋아요 구분해서 넣기-->
                   <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
                 </span>
               </div>
-              <div class="card-body">
-                <p><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
-                  <span>{{ store.title }}</span></p>
-                <hr>
-                <p>{{ store.content }}</p>
-              </div>
             </a>
+            <div class="card-body">
+              <a class="text-decoration-none text-black" href="{% url 'accounts:profile' store.user.pk %}">
+                <p class="d-flex align-items-center"><img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
+                  <span class="ms-2 fs-6 fw-bold">{{ store.user.username }}</span></p>
+              </a>
+              <hr>
+              <div class="fw-bold" style="font-size:20px;">
+                <p class="m-0 fw-normal" style="font-size:12px;">제목</p>
+                <p>{{ store.title }}</p>
+              </div>
+            </div>
           </div>
         {% endfor %}
 
