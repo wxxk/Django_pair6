@@ -26,7 +26,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             auth_login(request, user)
-            return redirect("accounts:index")
+            return redirect("store:index")
     else:
         form = CustomUserCreationForm()
     context = {
@@ -51,7 +51,7 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return redirect("accounts:index")
+    return redirect("store:index")
 
 
 def profile(request, pk):
@@ -65,7 +65,7 @@ def update(request):
         form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("accounts:index")
+            return redirect("accounts:profile", request.user.pk)
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {
@@ -80,7 +80,7 @@ def change_password(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, form.user)
-            return redirect("accounts:index")
+            return redirect("accounts:detail")
     else:
         form = PasswordChangeForm(request.user)
     context = {
@@ -92,7 +92,7 @@ def change_password(request):
 def delete(request):
     request.user.delete()
     auth_logout(request)
-    return render(request, "accounts/index.html")
+    return render(request, "store/index.html")
 
 
 def follow(request, user_pk):
