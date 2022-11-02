@@ -10,32 +10,38 @@
   <!-- 개인정보 -->
   <div class="container">
     <div class="card h-auto">
-      <div class="card-header">
+      <div class="card-header text-center">
         <h3>{{ profile.username }}님의 페이지</h3>
       </div>
-      <div class="card-body text-center">
-        <img class="rounded-circle" src="{{ profile.image.url }}" alt="">
+      <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <div class="me-3">
+            <img class="rounded-circle" src="{{ profile.image.url }}" alt="" style="width:100px; height: 100px;">
+          </div>
+          <div class="">
+            <h5 class="card-title">이름:
+              {{ profile.last_name }}{{ profile.first_name }}</h5>
+            <p class="card-text">이메일:
+              {{ profile.email }}</p>
+            팔로잉 :
+            <span id="followers-count">{{ profile.followings.all|length }}
+            </span>
+            | 팔로워 :
+            <span id="followings-count">{{ profile.followers.all|length }}
+            </span>
+          </div>
+        </div>
 
-        <h5 class="card-title">이름:
-          {{ profile.last_name }}{{ profile.first_name }}</h5>
-        <p class="card-text">이메일:
-          {{ profile.email }}</p>
         <div class="my-3">
-          팔로잉 :
-          <span id="followers-count">{{ profile.followings.all|length }}
-          </span>
-          | 팔로워 :
-          <span id="followings-count">{{ profile.followers.all|length }}
-          </span>
           <div class="row">
             <div class="col-6 h-100">
               <div class="card w-auto h-auto mt-3">
                 <div class="card-body">
-                  <h5 class="card-title mb-4">작성한글</h5>
+                  <h4 class="card-title mb-5 text-center fw-bold">작성한글</h4>
                   {% for store in stores %}
                     <div class="d-flex justify-content-between">
                       <a class="ellipsis card-text" href="{% url 'store:detail' store.pk %}">{{ store.title }}</a>
-                      <p class='mx-2 my-0'>{{ review.created_at }}</p>
+                      <p class='mx-2 my-0'>{{ store.created_at }}</p>
                     </div>
                     <hr>
                   {% endfor %}
@@ -45,11 +51,11 @@
             <div class="col-6 h-100">
               <div class="card w-auto h-auto mt-3">
                 <div class="card-body">
-                  <h5 class="card-title mb-4">작성한 댓글</h5>
+                  <h4 class="card-title mb-5 text-center fw-bold">작성한 댓글</h4>
                   {% for comment in comments %}
                     <div class="d-flex justify-content-between">
                       <a class="ellipsis card-text" href="{% url 'store:detail' comment.store.pk %}">{{ comment.content }}</a>
-                      <p class='mx-2 my-0'>{{ comment.create_at }}</p>
+                      <p class='mx-2 my-0'>{{ comment.created_at }}</p>
                     </div>
                     <hr>
                   {% endfor %}
