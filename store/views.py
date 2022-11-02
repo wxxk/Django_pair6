@@ -8,8 +8,8 @@ def index(request):
     stores_buys = Store.objects.filter(buysell=True)
     stores_sells = Store.objects.filter(buysell=False)
     context = {
-        "stores_buys":stores_buys,
-        "stores_sells":stores_sells,
+        "stores_buys": stores_buys,
+        "stores_sells": stores_sells,
     }
     return render(request, "store/index.html", context)
 
@@ -74,7 +74,6 @@ def comment_create(request, pk):
             comment.user = request.user
             comment.save()
             context = {
-                "comment": comment,
                 "comment_pk": comment.pk,
                 "content": comment.content,
                 "userName": comment.user.username,
