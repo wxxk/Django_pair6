@@ -48,7 +48,7 @@
             <div class="my-2 p-3 bg-light rounded-3">
               <p class="d-flex fw-bold align-items-center">
                 {{ comment.user.username }}님
-                <a class="btn btn-outline-dark mx-2 py-0" href="{% url 'store:comment_delete' store.pk comment.pk %}">삭제</a>
+                <a id="delete_btn" class="btn btn-outline-dark mx-2 py-0" href="{% url 'store:comment_delete' store.pk comment.pk %}">삭제</a>
               </p>
               <p class="m-0">
                 {{ comment.content }}

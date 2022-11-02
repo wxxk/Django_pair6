@@ -8,6 +8,13 @@
 
 {% block body %}
   <div class="container ">
+    <form class="d-flex" action="{% url 'store:search' %}">
+      {% csrf_token %}
+      <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">
+        Search
+      </button>
+    </form>
     <div class="col-6 m-auto d-flex justify-content-center">
       <div class="input-group m-3 border border-3">
         <input type="text" class="form-control border-0" placeholder="검색" aria-label="Username" aria-describedby="basic-addon1">
