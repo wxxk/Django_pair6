@@ -1,3 +1,6 @@
+{% load django_bootstrap5 %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,20 +10,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
     {% load static %}
-    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
 
   </head>
 
   <body>
-    <div class="container d-flex justify-content-center w-100">
-      <video autoplay="autoplay" muted="muted" loop="loop" id="myVideo">
+    <div class="container-fluid d-flex flex-column justify-content-start align-items-center bg-black">
+      <video class="col-lg-4 col-md-6 col-10 mt-5" autoplay="autoplay" muted="muted" loop="loop" id="myVideo">
         <source src="{% static 'videos/first.mp4' %}" type="video/mp4">
       </video>
-    </div>
-
-    <div class="content">
+      <div class="my-3 text-white">
+        <h1>포켓몬 연구소</h1>
+      </div>
       <button id="myBtn" onclick="myFunction()">Pause</button>
     </div>
 
