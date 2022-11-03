@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "accounts",
     "store",
     "community",
+    "main",
     "imagekit",
     "django_bootstrap5",
     "django.contrib.admin",
