@@ -113,8 +113,14 @@ def search(request):
         Q(title__icontains=search) | Q(content__icontains=search)
     )
 
+    buy_search_list = search_list.filter(buysell=1)
+    sell_search_list = search_list.filter(buysell=0)
+
     context = {
-        "search_list": search_list,
+        "search": search,
+        "buy_search_list": buy_search_list,
+        "sell_search_list": sell_search_list,
+        "search_list_len": len(search_list),
     }
 
     return render(request, "store/search.html", context)
