@@ -40,7 +40,7 @@
                   <h4 class="card-title mb-5 text-center fw-bold">작성한글</h4>
                   {% for store in store_page %}
                     <div class="hover d-flex justify-content-between">
-                      <p>{{ store.pk }}번
+                      <p class="m-0">{{ store.pk }}번
                         <a class="ellipsis card-text" href="{% url 'store:detail' store.pk %}">{{ store.title }}</a>
                       </p>
                       <p class='mx-2 my-0'>{{ store.created_at }}</p>
