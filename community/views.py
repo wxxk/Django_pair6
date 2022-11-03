@@ -85,3 +85,6 @@ def like(request, pk):
     else:
         community.like_user.add(request.user)
     return redirect('community:detail', pk)
+
+def rule(request):
+    return render(request, 'community/rule.html')
