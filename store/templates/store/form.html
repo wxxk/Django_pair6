@@ -14,22 +14,27 @@
       <form class="col-8" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-floating my-3">
-          <input class="form-control" placeholder="title" id="floatingText" name="title"></input>
+          <input class="form-control" placeholder="title" id="floatingText" name="title" value="{{ store.title }}"></input>
           <label for="floatingText">제목</label>
         </div>
 
         <div class="row g-2 my-3">
           <div class="col-md">
             <div class="form-floating">
-              <input type="number" class="form-control" id="floatingInputGrid" placeholder="금액" name="cost">
+              <input type="number" class="form-control" id="floatingInputGrid" placeholder="금액" name="cost" value="{{ store.cost }}">
               <label for="floatingInputGrid">금액</label>
             </div>
           </div>
           <div class="col-md">
             <div class="form-floating">
               <select class="form-select" id="floatingSelectGrid" name="buysell">
-                <option value="True">구매</option>
-                <option value="False">판매</option>
+                {% if store_form.buysell == 1 %}
+                  <option value="True" selected="selected">구매</option>
+                  <option value="False">판매</option>
+                {% else %}
+                  <option value="True">구매</option>
+                  <option value="False" selected="selected">판매</option>
+                {% endif %}
               </select>
               <label for="floatingSelectGrid">구매/판매</label>
             </div>
@@ -37,17 +42,15 @@
         </div>
 
         <div class="input-group my-3">
-          <label class="input-group-text" for="inputGroupFile01">Image</label>
-          <input type="file" class="form-control" id="inputGroupFile01" name="image">
+          <p>{{store_form.image}}</p>
         </div>
 
         <div class="input-group my-3">
-          <label class="input-group-text" for="inputGroupFile02">Thumbnail</label>
-          <input type="file" class="form-control" id="inputGroupFile02" name="thumbnail">
+          <p>{{store_form.thumbnail}}</p>
         </div>
 
         <div class="form-floating my-3">
-          <textarea class="form-control" placeholder="글 내용 작성" id="floatingTextarea" name="content"></textarea>
+          <textarea class="form-control" placeholder="글 내용 작성" id="floatingTextarea" name="content">{{store.content}}</textarea>
           <label for="floatingTextarea">내용</label>
         </div>
 
@@ -57,4 +60,5 @@
       </form>
     </div>
   </div>
+
 {% endblock body %}
