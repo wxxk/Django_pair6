@@ -56,6 +56,7 @@ def update(request, pk):
         store_form = StoreForm(instance=store)
     context = {
         "store_form": store_form,
+        "store":store,
     }
     return render(request, "store/form.html", context)
 
