@@ -17,9 +17,9 @@
         <div class="d-flex justify-content-center">
           <div class="me-3">
             {% if profile.image %}
-              <img class="profile-img border border-3 border-warning rounded-circle" src="{{ profile.image.url }}" alt="" style="width:100px; height: 100px;">
+              <div class="profile-img border border-3 border-warning rounded-circle" style="width:100px; height: 100px; background-image:url({{ profile.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
             {% else %}
-              <img class="profile-img border border-3 border-warning rounded-circle" src="https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S11/S11_050.png?w=512" alt="" style="width:100px; height: 100px;">
+              <div class="profile-img border border-3 border-warning rounded-circle" style="width:100px; height: 100px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S11/S11_050.png?w=512'); background-repeat:no-repeat; background-position:top -25px left -65px; background-size:cover; background-size:200px 250px"></div>
             {% endif %}
           </div>
           <div class="">
