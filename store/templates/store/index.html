@@ -45,13 +45,13 @@
             </a>
             <div class="card-body">
               <a class="text-decoration-none text-black" href="{% url 'accounts:profile' store.user.pk %}">
-                <p class="d-flex align-items-center">
+                <div class="d-flex align-items-center">
                   {% if store.user.image %}
-                    <img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
+                    <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url({{ store.user.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
                   {% else %}
-                    <img class="border border-3 rounded-circle " src="https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png" alt="profile-image" style="width:30px; height:30px;">
+                    <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png'); background-repeat:no-repeat; background-position:top -12px left -12px; background-size:cover; background-size:70px 100px"></div>
                   {% endif %}
-                  <span class="ms-2 fs-6 ">{{ store.user.username }}</span></p>
+                  <span class="ms-2 fs-6 ">{{ store.user.username }}</span></div>
               </a>
               <hr>
               <div class="" style="font-size:20px;">
@@ -91,13 +91,13 @@
             </a>
             <div class="card-body">
               <a class="text-decoration-none text-black" href="{% url 'accounts:profile' store.user.pk %}">
-                <p class="d-flex align-items-center">
+                <div class="d-flex align-items-center">
                   {% if store.user.image %}
-                    <img class="border border-3 rounded-circle " src="{{ store.user.image.url }}" alt="profile-image" style="width:30px; height:30px;">
+                    <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url({{ store.user.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
                   {% else %}
-                    <img class="border border-3 rounded-circle " src="https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png" alt="profile-image" style="width:30px; height:30px;">
+                    <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png'); background-repeat:no-repeat; background-position:top -12px left -12px; background-size:cover; background-size:70px 100px"></div>
                   {% endif %}
-                  <span class="ms-2 fs-6 ">{{ store.user.username }}</span></p>
+                  <span class="ms-2 fs-6 ">{{ store.user.username }}</span></div>
               </a>
               <hr>
               <div class="" style="font-size:20px;">
