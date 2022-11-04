@@ -58,10 +58,11 @@ body {
   width: 200px;
   font-size: 18px;
   padding: 10px;
-  border: none;
+  border: 3px solid white;
   background: #000;
   color: #fff;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 #myBtn:hover {
@@ -71,4 +72,18 @@ body {
 
 .container-fluid {
   height: 100vh;
+}
+
+.btn {
+  width: 200px;
+  font-size: 18px;
+  color: white;
+  border: 3px solid white;
+  background: #000;
+  color: #fff;
+}
+
+.btn:hover {
+  background: #ddd;
+  color: black;
 }
