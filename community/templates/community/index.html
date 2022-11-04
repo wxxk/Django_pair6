@@ -12,8 +12,11 @@
       <div class="col-3 mx-3">
         <img class="img-fluid" src="{% static 'images/oh.png' %}" alt="">
       </div>
-      <h1>오늘의 포켓몬은 뭘까요?</h1>
+      <h1 class="d-flex align-items-center">
+        <lord-icon src="https://cdn.lordicon.com/xhbsnkyp.json" trigger="loop" delay="500" colors="outline:#121331,primary:#e8e230,secondary:#e83a30" style="width:80px;height:80px"></lord-icon>오늘의 포켓몬은 뭘까요?
+      </h1>
     </div>
+    <h5>뮤츠를 찾으면 행운이..?</h5>
 
     <div class="my-3 p-3 d-flex justify-content-center bg-danger bg-opacity-50 rounded-2">
       {% for card in cards %}
@@ -24,16 +27,42 @@
       {% endfor %}
     </div>
 
-    <div class="my-5 d-flex align-items-center">
-      <h1>덱1</h1>
+    <hr class="w-100">
+
+    <h1 class="m-5 d-flex align-items-center">
+      <lord-icon src="https://cdn.lordicon.com/cqgtrhpg.json" trigger="loop" delay="500" colors="outline:#131432,primary:#f4a09c,secondary:#3080e8,tertiary:#e83a30" style="width:80px;height:80px"></lord-icon>선수들의 덱 레시피
+    </h1>
+
+    <h2 class="mt-5 w-100 d-flex align-items-center">
+      <lord-icon src="https://cdn.lordicon.com/eyftghvh.json" trigger="morph" colors="outline:#000000,primary:#f4dc9c" style="width:50px;height:50px"></lord-icon>김포코의 프테라 VSTAR 덱
+    </h2>
+    <h4 class="text-bg-dark">덱 코드 :89XM-U9nc-0hoM-JUJl</h4>
+
+    <div class="my-3 p-3 d-flex justify-content-center bg-secondary bg-opacity-50 rounded-2">
+      <div class="row">
+        {% for card in dec1 %}
+          <div class="col-2 p-2">
+            <img class="img-fluid" src="{{card}}" alt="">
+          </div>
+        {% endfor %}
+      </div>
     </div>
 
-    <div class="my-3 p-3 d-flex justify-content-center bg-danger bg-opacity-50 rounded-2">
-      {% for card in dec1 %}
-        <div class="col-2 p-2">
-          <img class="img-fluid" src="{{card}}" alt="">
-        </div>
-      {% endfor %}
+    <hr class="w-100">
+
+    <h2 class="mt-5 w-100 d-flex align-items-center">
+      <lord-icon src="https://cdn.lordicon.com/eyftghvh.json" trigger="morph" colors="outline:#000000,primary:#f4dc9c" style="width:50px;height:50px"></lord-icon>변성모 선수의 자시안 VSTAR 덱
+    </h2>
+    <h4 class="text-bg-dark">덱 코드 :4Xbg-hxYy-PVwC-Ti6D</h4>
+
+    <div class="my-3 p-3 d-flex justify-content-center bg-secondary bg-opacity-50 rounded-2">
+      <div class="row">
+        {% for card in dec2 %}
+          <div class="col-2 p-2">
+            <img class="img-fluid" src="{{card}}" alt="">
+          </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
