@@ -3,12 +3,38 @@
 {% load static %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/community_index_style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/community_index.css' %}">
 {% endblock css %}
 
 {% block body %}
-  {% for card in cards %}
-    <img src="{{card.image}}" alt="">
-  {% endfor %}
+  <div class="container d-flex flex-column align-items-center">
+    <div class="my-5 d-flex align-items-center">
+      <div class="col-3 mx-3">
+        <img class="img-fluid" src="{% static 'images/oh.png' %}" alt="">
+      </div>
+      <h1>오늘의 포켓몬은 뭘까요?</h1>
+    </div>
+
+    <div class="my-3 p-3 d-flex justify-content-center bg-danger bg-opacity-50 rounded-2">
+      {% for card in cards %}
+        <div class="card-box col-2 p-2">
+          <img class="card-image-back img-fluid" src="{% static 'images/back_card.png' %}" alt="">
+          <img class="card-image-front img-fluid" src="{{card.image}}" alt="">
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="my-5 d-flex align-items-center">
+      <h1>덱1</h1>
+    </div>
+
+    <div class="my-3 p-3 d-flex justify-content-center bg-danger bg-opacity-50 rounded-2">
+      {% for card in dec1 %}
+        <div class="col-2 p-2">
+          <img class="img-fluid" src="{{card}}" alt="">
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 
 {% endblock body %}
