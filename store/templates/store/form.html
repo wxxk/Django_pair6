@@ -56,7 +56,11 @@
         </div>
 
         <div class="d-flex justify-content-end my-3">
-          <button class="btn btn-outline-danger" type="submit">글 수정</button>
+          {% if request.resolver_match.url_name == 'create' %}
+            <button class="btn btn-outline-danger" type="submit">글 작성</button>
+          {% else %}
+            <button class="btn btn-outline-danger" type="submit">글 수정</button>
+          {% endif %}
         </div>
       </form>
     </div>

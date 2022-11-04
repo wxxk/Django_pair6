@@ -17,7 +17,8 @@ from django.contrib.auth import logout as auth_logout
 from django.http import JsonResponse
 
 from django.core.paginator import Paginator
-
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 # Create your views here.
 def index(request):
@@ -25,18 +26,21 @@ def index(request):
 
 
 def signup(request):
-    if request.method == "POST":
-        form = CustomUserCreationForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save()
-            auth_login(request, user)
-            return redirect("store:index")
+    if request.user.is_authenticated:
+        return HttpResponseForbidden()
     else:
-        form = CustomUserCreationForm()
-    context = {
-        "form": form,
-    }
-    return render(request, "accounts/signup.html", context)
+        if request.method == "POST":
+            form = CustomUserCreationForm(request.POST, request.FILES)
+            if form.is_valid():
+                user = form.save()
+                auth_login(request, user)
+                return redirect("store:index")
+        else:
+            form = CustomUserCreationForm()
+        context = {
+            "form": form,
+        }
+        return render(request, "accounts/signup.html", context)
 
 
 def login(request):
@@ -83,6 +87,7 @@ def profile(request, pk):
     return render(request, "accounts/profile.html", context)
 
 
+@login_required
 def update(request):
     if request.method == "POST":
         form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
@@ -97,6 +102,7 @@ def update(request):
     return render(request, "accounts/update.html", context)
 
 
+@login_required
 def change_password(request):
     if request.method == "POST":
         form = PasswordChangeForm(request.user, request.POST)
@@ -112,6 +118,7 @@ def change_password(request):
     return render(request, "accounts/change_password.html", context)
 
 
+@login_required
 def delete(request):
     request.user.delete()
     auth_logout(request)
