@@ -1,0 +1,21 @@
+.card-box {
+  position: relative;
+  display: inline-block;
+}
+
+.card-box .card-image-front {
+  visibility: hidden;
+  /* display: none; */
+  position: absolute;
+  transition: transform .5s;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.card-box:hover .card-image-front {
+  visibility: visible;
+  /* display: inline; */
+  transform: scale(2);
+  transition: transform .5s;
+}

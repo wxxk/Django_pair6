@@ -1,0 +1,22 @@
+.ellipsis {
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+
+.ellipsis:hover {
+  font-weight: bolder;
+}
+
+
+.hover:hover{
+  background-color: blanchedalmond;
+}
+
+.profile-img {
+  transition-duration: 1s;
+}
+
+.profile-img:hover {
+  transform: rotateY(360deg);
+}
