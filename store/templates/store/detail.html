@@ -5,19 +5,22 @@
   <div class="container">
     <div class="d-flex">
       <div class="col-6 p-0 d-flex flex-column align-items-center">
-        <div class="col-8 my-3 p-3 border border-3 bg-light" style="height:400px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:contain;"></div>
-
+        {% if store.image %}
+          <div class="col-8 my-3 p-3 border border-3 bg-light" style="height:400px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:contain;"></div>
+        {% else %}
+          <div class="col-8 my-3 p-3 border border-3 bg-light" style="height:400px; background-image:url(https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png); background-repeat:no-repeat; background-position:center; background-size:contain;"></div>
+        {% endif %}
         <div class="col-8 p-3 border border-3">
           <div class="d-flex justify-content-between align-items-center">
             <h2 class="text-decoration-underline me-3">{{store.title}}</h2>
             <div id="icon" data-store-id="{{store.pk}}">
-            {% if request.user.is_authenticated %}
-              {% if request.user in store.like_user.all %}
-                <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px" id="like-btn" data-store-id="{{store.pk}}"></lord-icon>
-              {% else %}
-                <lord-icon src="https://cdn.lordicon.com/rjzlnunf.json" trigger="hover" colors="primary:#121331,secondary:#e83a30" style="width:45px;height:45px" id="like-btn" data-store-id="{{store.pk}}"></lord-icon>
+              {% if request.user.is_authenticated %}
+                {% if request.user in store.like_user.all %}
+                  <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px" id="like-btn" data-store-id="{{store.pk}}"></lord-icon>
+                {% else %}
+                  <lord-icon src="https://cdn.lordicon.com/rjzlnunf.json" trigger="hover" colors="primary:#121331,secondary:#e83a30" style="width:45px;height:45px" id="like-btn" data-store-id="{{store.pk}}"></lord-icon>
+                {% endif %}
               {% endif %}
-            {% endif %}
             </div>
           </div>
           <div class="d-flex justify-content-between">
@@ -58,7 +61,7 @@
               <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="content"></textarea>
               <label for="floatingTextarea">Comments</label>
             </div>
-            <button class="btn btn-primary" type="submit">제출</button>
+            <button class="btn btn-outline-danger" type="submit">작성</button>
           </div>
         </form>
 
@@ -88,20 +91,20 @@
         if (response.data.is_like === true) {
           const oldLordIcon = document.querySelector("#like-btn")
           const newLordIcon = document.createElement("lord-icon")
-          newLordIcon.src="https://cdn.lordicon.com/iwaotjbp.json"
-          newLordIcon.trigger="morph"
-          newLordIcon.style="width:45px;height:45px"
-          newLordIcon.id="like-btn"
+          newLordIcon.src = "https://cdn.lordicon.com/iwaotjbp.json"
+          newLordIcon.trigger = "morph"
+          newLordIcon.style = "width:45px;height:45px"
+          newLordIcon.id = "like-btn"
           newLordIcon.setAttribute('data-store-id', `${event.target.dataset.storeId}`);
           likeBtn.replaceChild(newLordIcon, oldLordIcon)
         } else {
           const oldLordIcon = document.querySelector("#like-btn")
           const newLordIcon = document.createElement("lord-icon")
-          newLordIcon.src="https://cdn.lordicon.com/rjzlnunf.json"
-          newLordIcon.trigger="morph"
-          newLordIcon.colors="primary:#121331,secondary:#e83a30"
-          newLordIcon.style="width:45px;height:45px"
-          newLordIcon.id="like-btn"
+          newLordIcon.src = "https://cdn.lordicon.com/rjzlnunf.json"
+          newLordIcon.trigger = "morph"
+          newLordIcon.colors = "primary:#121331,secondary:#e83a30"
+          newLordIcon.style = "width:45px;height:45px"
+          newLordIcon.id = "like-btn"
           newLordIcon.setAttribute('data-store-id', `${event.target.dataset.storeId}`);
           likeBtn.replaceChild(newLordIcon, oldLordIcon)
         }

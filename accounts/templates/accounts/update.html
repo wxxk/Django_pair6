@@ -8,8 +8,8 @@
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <a class="btn" href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
-        <input class="btn" type="submit">
+        <a class="btn btn-outline-danger" href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
+        <input class="btn btn-outline-danger" type="submit" value="정보수정">
       </div>
     </form>
   </div>
