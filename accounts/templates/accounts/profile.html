@@ -40,7 +40,7 @@
                   <h4 class="card-title mb-5 text-center fw-bold">작성한글</h4>
                   {% for store in store_page %}
                     <div class="hover d-flex justify-content-between">
-                      <p>{{ store.pk }}번
+                      <p class="mb-0">{{ store.pk }}번
                         <a class="ellipsis card-text" href="{% url 'store:detail' store.pk %}">{{ store.title }}</a>
                       </p>
                       <p class='mx-2 my-0'>{{ store.created_at }}</p>
@@ -54,7 +54,7 @@
                       <ul class="pagination justify-content-center">
                         {% if store_page.has_previous %}
                           <li class="page-item">
-                            <a class="page-link" href="?q={{store_page.previous_page_number}}">이전으로</a>
+                            <a class="page-link text-danger" href="?q={{store_page.previous_page_number}}">이전으로</a>
                           </li>
                         {% else %}
                           <li class="page-item disabled">
@@ -62,11 +62,11 @@
                           </li>
                         {% endif %}
                         <li class="page-item">
-                          <a class="page-link" href="#">{{store_page.number}}/{{store_page.paginator.num_pages}}</a>
+                          <a class="page-link text-danger" href="#">{{store_page.number}}/{{store_page.paginator.num_pages}}</a>
                         </li>
                         {% if store_page.has_next %}
                           <li class="page-item">
-                            <a class="page-link" href="?q={{store_page.next_page_number}}">다음으로</a>
+                            <a class="page-link text-danger" href="?q={{store_page.next_page_number}}">다음으로</a>
                           </li>
                         {% else %}
                           <li class="page-item disabled">
@@ -97,7 +97,7 @@
                       <ul class="pagination justify-content-center">
                         {% if comments_page.has_previous %}
                           <li class="page-item">
-                            <a class="page-link" href="?p={{comments_page.previous_page_number }}">이전으로</a>
+                            <a class="page-link text-danger" href="?p={{comments_page.previous_page_number }}">이전으로</a>
                           </li>
                         {% else %}
                           <li class="page-item disabled">
@@ -105,11 +105,11 @@
                           </li>
                         {% endif %}
                         <li class="page-item">
-                          <a class="page-link" href="#">{{comments_page.number}}/{{comments_page.paginator.num_pages}}</a>
+                          <a class="page-link text-danger" href="#">{{comments_page.number}}/{{comments_page.paginator.num_pages}}</a>
                         </li>
                         {% if comments_page.has_next %}
                           <li class="page-item">
-                            <a class="page-link" href="?p={{comments_page.next_page_number }}">다음으로</a>
+                            <a class="page-link text-danger" href="?p={{comments_page.next_page_number }}">다음으로</a>
                           </li>
                         {% else %}
                           <li class="page-item disabled">
@@ -133,15 +133,15 @@
                   {% endif %}
                 </form>
               {% else %}
-                <a class="btn btn-outline-dark me-2" href="{% url 'accounts:update' %}">정보수정</a>
-                <button type="button" class="btn btn-outline-dark mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <a class="btn btn-outline-danger me-2" href="{% url 'accounts:update' %}">정보수정</a>
+                <button type="button" class="btn btn-outline-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   회원탈퇴
                 </button>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h1 class="modal-title m-0 fs-5" id="exampleModalLabel">정말 탈퇴하시겠습니까?</h1>
+                        <h1 class="modal-title m-0 fs-5" id="exampleModalLabel">탈퇴하시겠습니까?</h1>
                       </div>
                       <div class="modal-body text-start">
                         탈퇴된 계정은 복구할 수 없습니다.
@@ -151,7 +151,7 @@
                           {% csrf_token %}
                           <input class='btn btn-outline-danger' type="submit" value='탈퇴'>
                         </form>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">아니오</button>
                       </div>
                     </div>
                   </div>

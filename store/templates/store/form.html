@@ -41,21 +41,22 @@
           </div>
         </div>
 
-        <div class="input-group my-3">
-          <p>{{store_form.image}}</p>
-        </div>
-
-        <div class="input-group my-3">
-          <p>{{store_form.thumbnail}}</p>
-        </div>
-
         <div class="form-floating my-3">
           <textarea class="form-control" placeholder="글 내용 작성" id="floatingTextarea" name="content">{{store.content}}</textarea>
           <label for="floatingTextarea">내용</label>
         </div>
+        <div class="border border-1 border-grey rounded p-3">
+          <p class="mb-0 text-secondary">썸네일 변경</p>
+          <p class="mb-0">{{store_form.image}}</p>
+        </div>
+
+        <div class="border border-1 border-grey rounded p-3 mt-3">
+          <p class="mb-0 text-secondary">사진 변경</p>
+          <p>{{store_form.thumbnail}}</p>
+        </div>
 
         <div class="d-flex justify-content-end my-3">
-          <button class="btn btn-primary" type="submit">제출</button>
+          <button class="btn btn-outline-danger" type="submit">글 수정</button>
         </div>
       </form>
     </div>

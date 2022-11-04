@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+  <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
 
   <head>
     <meta charset="UTF-8">
@@ -14,18 +15,31 @@
     {% bootstrap_javascript %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="https://cdn.lordicon.com/qjzruarw.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+      * {
+        font-family: 'Jua', sans-serif;
+      }
+    </style>
 
   </head>
 
   <body>
     <div class="container-fluid d-flex flex-column justify-content-start align-items-center bg-black">
-      <video class="col-lg-4 col-md-6 col-10 mt-5" autoplay="autoplay" muted="muted" loop="loop" id="myVideo">
+      <video class="col-lg-4 col-md-6 col-10 mt-5" autoplay="autoplay" loop="loop" id="myVideo">
         <source src="{% static 'videos/first.mp4' %}" type="video/mp4">
       </video>
       <div class="my-3 text-white">
         <h1>포켓몬 연구소</h1>
       </div>
-      <button id="myBtn" onclick="myFunction()">Pause</button>
+      <div class="d-felx m-3">
+        <a class="btn" href="{% url 'accounts:login'%}">로그인</a>
+        <a class="btn" href="{% url 'store:index'%}">스토어</a>
+      </div>
+      <button class="myBtn" id="myBtn" onclick="myFunction()">
+        <lord-icon src="https://cdn.lordicon.com/bgwzirmj.json" trigger="morph" colors="primary:#ffffff,secondary:#30e849" style="width:80px;height:80px"></lord-icon>
+      </button>
     </div>
 
     <script>
@@ -35,10 +49,11 @@
       function myFunction() {
         if (video.paused) {
           video.play();
-          btn.innerHTML = "Pause";
+          btn.innerHTML = '<lord-icon src="https://cdn.lordicon.com/bgwzirmj.json" trigger="morph" colors="primary:#ffffff,secondary:#30e849" style="width:80px;height:80px"></lord-icon>';
+
         } else {
           video.pause();
-          btn.innerHTML = "Play";
+          btn.innerHTML = '<lord-icon src="https://cdn.lordicon.com/vieswnpa.json" trigger="morph" colors="primary:#ffffff,secondary:#30e849" style="width:80px;height:80px"></lord-icon>';
         }
       }
     </script>
