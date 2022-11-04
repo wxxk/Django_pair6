@@ -47,7 +47,43 @@
         </div>
       </div>
 
-      <div class="col-5 p-0 bg-light"></div>
+      <!-- 수정하기!!!! -->
+      <div class="col-5 p-0 bg-light">
+        <div class="h-50 bg-primary bg-opacity-25 d-flex flex-column justify-content-end">
+          {% if store.buysell %}
+            <div class="m-2 p-1 d-flex justify-content-between align-items-center bg-light rounded-2">
+              <div class="ps-3 fw-bold">
+                {{ store.user.username }}
+              </div>
+              <div>
+                {{ store.cost }}
+              </div>
+              <div>
+                {% if store.buysell %}
+                  <a class="btn btn-danger" href="#">구매</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="h-50 bg-danger bg-opacity-25 d-flex flex-column">
+          {% if not store.buysell %}
+            <div class="m-2 p-1 d-flex justify-content-between align-items-center bg-light rounded-2">
+              <div class="ps-3 fw-bold">
+                {{ store.user.username }}
+              </div>
+              <div>
+                {{ store.cost }}
+              </div>
+              <div>
+                {% if not store.buysell %}
+                  <a class="btn btn-primary" href="#">판매</a>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
 
     <div class="container my-3 d-flex justify-content-center">
