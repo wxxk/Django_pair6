@@ -3,6 +3,7 @@ from .models import Store, Comment
 from .forms import StoreForm, CommentForm
 from django.http import JsonResponse
 from django.db.models import Q
+from django.http import JsonResponse
 
 # Create your views here.
 def index(request):
@@ -56,7 +57,7 @@ def update(request, pk):
         store_form = StoreForm(instance=store)
     context = {
         "store_form": store_form,
-        "store":store,
+        "store": store,
     }
     return render(request, "store/form.html", context)
 
@@ -81,7 +82,6 @@ def comment_create(request, pk):
                 "content": comment.content,
                 "userName": comment.user.username,
             }
-
             return JsonResponse(context)
 
 
@@ -96,13 +96,21 @@ def comment_delete(request, store_pk, comment_pk):
 
 
 def like(request, pk):
-    store = Store.objects.get(pk=pk)
-    # 좋아요 등록된 상태
-    if request.user in store.like_user.all():
-        store.like_user.remove(request.user)
-    # 좋아요 없는 상태
-    else:
-        store.like_user.add(request.user)
+    if request.user.is_authenticated:
+        store = Store.objects.get(pk=pk)
+        # 좋아요 등록된 상태
+        if request.user in store.like_user.all():
+            store.like_user.remove(request.user)
+            is_liked = False
+        # 좋아요 없는 상태
+        else:
+            store.like_user.add(request.user)
+            is_liked = True
+        context = {
+            "is_like": is_liked,
+            "likeCount": store.like_user.count(),
+        }
+        return JsonResponse(context)
     return redirect("store:detail", pk)
 
 
