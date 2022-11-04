@@ -3,7 +3,8 @@ from .models import Store, Comment
 from .forms import StoreForm, CommentForm
 from django.http import JsonResponse
 from django.db.models import Q
-from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 # Create your views here.
 def index(request):
@@ -16,6 +17,7 @@ def index(request):
     return render(request, "store/index.html", context)
 
 
+@login_required
 def create(request):
     if request.method == "POST":
         store_form = StoreForm(request.POST, request.FILES)
@@ -46,53 +48,63 @@ def detail(request, pk):
     return render(request, "store/detail.html", context)
 
 
+@login_required
 def update(request, pk):
     store = Store.objects.get(pk=pk)
-    if request.method == "POST":
-        store_form = StoreForm(request.POST, request.FILES, instance=store)
-        if store_form.is_valid():
-            store_form.save()
-            return redirect("store:detail", pk)
+    if request.user == store.user:
+        if request.method == "POST":
+            store_form = StoreForm(request.POST, request.FILES, instance=store)
+            if store_form.is_valid():
+                store_form.save()
+                return redirect("store:detail", pk)
+        else:
+            store_form = StoreForm(instance=store)
+        context = {
+            "store_form": store_form,
+            "store": store,
+        }
+        return render(request, "store/form.html", context)
     else:
-        store_form = StoreForm(instance=store)
-    context = {
-        "store_form": store_form,
-        "store": store,
-    }
-    return render(request, "store/form.html", context)
+        return HttpResponseForbidden()
 
 
+@login_required
 def delete(request, pk):
     store = Store.objects.get(pk=pk)
-    store.delete()
-    return redirect("store:index")
+    if request.user == store.user:
+        store.delete()
+        return redirect("store:index")
+    else:
+        return HttpResponseForbidden()
 
 
+@login_required
 def comment_create(request, pk):
-    if request.user.is_authenticated:
-        store = Store.objects.get(pk=pk)
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.store = store
-            comment.user = request.user
-            comment.save()
-            context = {
-                "comment_pk": comment.pk,
-                "content": comment.content,
-                "userName": comment.user.username,
-            }
-            return JsonResponse(context)
+    store = Store.objects.get(pk=pk)
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.store = store
+        comment.user = request.user
+        comment.save()
+        context = {
+            "comment_pk": comment.pk,
+            "content": comment.content,
+            "userName": comment.user.username,
+        }
+        return JsonResponse(context)
 
 
+@login_required
 def comment_delete(request, store_pk, comment_pk):
     store = Store.objects.get(pk=store_pk)
     comment = Comment.objects.get(pk=comment_pk)
-    if request.user.pk == comment.user.pk:
-        comment.delete()
-        return redirect("store:detail", store.pk)
+    if request.user == comment.user:
+        if request.user.pk == comment.user.pk:
+            comment.delete()
+            return redirect("store:detail", store.pk)
     else:
-        return redirect("store:detail", store.pk)
+        return HttpResponseForbidden()
 
 
 def like(request, pk):
