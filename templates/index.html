@@ -26,25 +26,72 @@
   </head>
 
   <body>
-    <div class="container-fluid d-flex flex-column justify-content-start align-items-center bg-black">
-      <video class="col-lg-4 col-md-6 col-10 mt-5" autoplay="autoplay" loop="loop" id="myVideo">
-        <source src="{% static 'videos/first.mp4' %}" type="video/mp4">
-      </video>
-      <div class="my-3 text-white">
-        <h1>포켓몬 연구소</h1>
+    <div class="main-box d-flex flex-column justify-content-start align-items-center bg-black">
+      <div class="bubbles">
+        <span style="--i:11;"></span>
+        <span style="--i:12;"></span>
+        <span style="--i:24;"></span>
+        <span style="--i:10;"></span>
+        <span style="--i:14;"></span>
+        <span style="--i:23;"></span>
+        <span style="--i:18;"></span>
+        <span style="--i:16;"></span>
+        <span style="--i:19;"></span>
+        <span style="--i:20;"></span>
+        <span style="--i:22;"></span>
+        <span style="--i:25;"></span>
+        <span style="--i:18;"></span>
+        <span style="--i:21;"></span>
+        <span style="--i:15;"></span>
+        <span style="--i:13;"></span>
+        <span style="--i:26;"></span>
+        <span style="--i:17;"></span>
+        <span style="--i:13;"></span>
+        <span style="--i:28;"></span>
+        <span style="--i:11;"></span>
+        <span style="--i:12;"></span>
+        <span style="--i:24;"></span>
+        <span style="--i:10;"></span>
+        <span style="--i:14;"></span>
+        <span style="--i:23;"></span>
+        <span style="--i:18;"></span>
+        <span style="--i:16;"></span>
+        <span style="--i:19;"></span>
+        <span style="--i:20;"></span>
+        <span style="--i:22;"></span>
+        <span style="--i:25;"></span>
+        <span style="--i:18;"></span>
+        <span style="--i:21;"></span>
+        <span style="--i:15;"></span>
+        <span style="--i:13;"></span>
+        <span style="--i:26;"></span>
+        <span style="--i:17;"></span>
+        <span style="--i:13;"></span>
+        <span style="--i:28;"></span>
       </div>
-      <div class="d-felx m-3">
-        <a class="btn" href="{% url 'accounts:login'%}">로그인</a>
-        <a class="btn" href="{% url 'store:index'%}">스토어</a>
+      <div class="d-flex flex-column align-items-center position-absolute top-50 start-50 translate-middle">
+        <video class="col-lg-6 col-md-6 col-10 mt-5 border border-3" autoplay="autoplay" loop="loop" id="myVideo">
+          <source src="{% static 'videos/first.mp4' %}" type="video/mp4">
+        </video>
+        <div class="my-3 text-white">
+          <h1>포켓몬 연구소</h1>
+        </div>
+        <div class="d-flex m-3">
+          <a class="btn mx-2" href="{% url 'accounts:login'%}">로그인</a>
+          <a class="btn mx-2" href="{% url 'store:index'%}">스토어</a>
+        </div>
+        <button class="myBtn" id="myBtn" onclick="myFunction()">
+          <lord-icon src="https://cdn.lordicon.com/vieswnpa.json" trigger="morph" colors="primary:#ffffff,secondary:#30e849" style="width:80px;height:80px"></lord-icon>
+        </button>
       </div>
-      <button class="myBtn" id="myBtn" onclick="myFunction()">
-        <lord-icon src="https://cdn.lordicon.com/bgwzirmj.json" trigger="morph" colors="primary:#ffffff,secondary:#30e849" style="width:80px;height:80px"></lord-icon>
-      </button>
     </div>
 
     <script>
       var video = document.getElementById("myVideo");
       var btn = document.getElementById("myBtn");
+      document
+        .getElementsByTagName('video')[0]
+        .volume = 0.1;
 
       function myFunction() {
         if (video.paused) {
