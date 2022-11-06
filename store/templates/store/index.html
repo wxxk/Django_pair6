@@ -1,115 +1,203 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% load static %}
-
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/store_index_style.css' %}">
 {% endblock css %}
 
 {% block body %}
-  <div class="container ">
-    <div class="col-6 m-auto d-flex justify-content-center">
-      <form class="d-flex w-100 m-3 border border-3" action="{% url 'store:search' %}">
-        {% csrf_token %}
-        <input class="form-control border-0" type="search" placeholder="검색" name="search" aria-label="Search">
-        <button class="btn border-0" type="submit">
-          <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="click" colors="primary:#121331,secondary:#08a88a" style="width:32px;height:32px"></lord-icon>
-        </button>
-      </form>
-    </div>
-    <div class="d-flex justify-content-end">
-      <a class="btn btn-danger" href="{% url 'store:create' %}">게시글 작성</a>
-    </div>
+
+  <body>
+    <div class="box">
+    <ul class="menu p-0">
+      <div class="toggle">
+        <img src="https://www.pokemonkorea.co.kr/img/icon/icon_ball_b.png" alt="">
+      </div>
+
+      <li style="--i:0;--clr:#3DFF92;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type1.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:1;--clr:#FF5050;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type2.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:2;--clr:#00EBFF;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type3.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:3;--clr:#FFEB46;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type4.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:4;--clr:#800080;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type5.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:5;--clr:#FF8200">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type6.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:6;--clr:#000D86;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type7.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:7;--clr:#606060;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type8.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:8;--clr:#969696;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type9.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:9;--clr:#FAEB78;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type10.png" alt="">
+        </a>
+      </li>
+
+      <li style="--i:10;--clr:#FF3CBB;">
+        <a href="#">
+          <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type11.png" alt="">
+        </a>
+      </li>
+    </ul>
   </div>
 
-  <div class="mb-5 container">
-    <!-- 구매 -->
-    <h2 class="mb-5 ">구매 목록</h2>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="nomodule" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
-    <div class="container bg-danger bg-opacity-25">
-      <div class="row m-0 w-100 justify-content-center">
-        {% for store in stores_buys %}
-          <div class="m-2 card col-xl-2 col-lg-3 col-md-4 col-6">
-            <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
-              <div class="image-box position-relative">
-                {% if store.image %}
-                  <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
-                {% else %}
-                  <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url(https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
-                {% endif %}
-                <span class="badge m-1 position-absolute bottom-0 end-0">
-                  <!-- 좋아요 구분해서 넣기-->
-                  <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
-                </span>
-              </div>
-            </a>
-            <div class="card-body">
-              <a class="text-decoration-none text-black" href="{% url 'accounts:profile' store.user.pk %}">
-                <div class="d-flex align-items-center">
-                  {% if store.user.image %}
-                    <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url({{ store.user.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
-                  {% else %}
-                    <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png'); background-repeat:no-repeat; background-position:top -12px left -12px; background-size:cover; background-size:70px 100px"></div>
-                  {% endif %}
-                  <span class="ms-2 fs-6 ">{{ store.user.username }}</span></div>
-              </a>
-              <hr>
-              <div class="" style="font-size:20px;">
-                <p class="m-0 fw-normal" style="font-size:12px;">제목</p>
-                <p>{{ store.title }}</p>
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-
+    <script>
+      let toggle = document.querySelector('.toggle')
+      let menu = document.querySelector('.menu')
+      toggle.onclick = function () {
+        menu
+          .classList
+          .toggle('active')
+      }
+    </script>
+{% comment %} 
+    <div class="container ">
+      <div class="col-6 m-auto d-flex justify-content-center">
+        <form class="d-flex w-100 m-3 border border-3" action="{% url 'store:search' %}">
+          {% csrf_token %}
+          <input class="form-control border-0" type="search" placeholder="검색" name="search" aria-label="Search">
+          <button class="btn border-0" type="submit">
+            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="click" colors="primary:#121331,secondary:#08a88a" style="width:32px;height:32px"></lord-icon>
+          </button>
+        </form>
+      </div>
+      <div class="d-flex justify-content-end">
+        <a class="btn btn-danger" href="{% url 'store:create' %}">게시글 작성</a>
       </div>
     </div>
-  </div>
 
-  <hr>
+    <div class="mb-5 container">
+      <!-- 구매 -->
+      <h2 class="mb-5 ">구매 목록</h2>
 
-  <div class="mb-5 container">
-    <!-- 판매 -->
-    <h2 class="mb-5 ">판매 목록</h2>
-
-    <div class="container bg-success bg-opacity-25">
-      <div class="row m-0 w-100 justify-content-center">
-        {% for store in stores_sells %}
-          <div class="m-2 card col-xl-2 col-lg-3 col-md-4 col-6">
-            <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
-              <div class="image-box position-relative">
-                {% if store.image %}
-                  <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
-                {% else %}
-                  <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url(https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
-                {% endif %}
-                <span class="badge m-1 position-absolute bottom-0 end-0">
-                  <!-- 좋아요 구분해서 넣기-->
-                  <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
-                </span>
-              </div>
-            </a>
-            <div class="card-body">
-              <a class="text-decoration-none text-black" href="{% url 'accounts:profile' store.user.pk %}">
-                <div class="d-flex align-items-center">
-                  {% if store.user.image %}
-                    <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url({{ store.user.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+      <div class="container bg-danger bg-opacity-25">
+        <div class="row m-0 w-100 justify-content-center">
+          {% for store in stores_buys %}
+            <div class="m-2 card col-xl-2 col-lg-3 col-md-4 col-6">
+              <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
+                <div class="image-box position-relative">
+                  {% if store.image %}
+                    <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
                   {% else %}
-                    <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png'); background-repeat:no-repeat; background-position:top -12px left -12px; background-size:cover; background-size:70px 100px"></div>
+                    <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url(https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
                   {% endif %}
-                  <span class="ms-2 fs-6 ">{{ store.user.username }}</span></div>
+                  <span class="badge m-1 position-absolute bottom-0 end-0">
+                    <!-- 좋아요 구분해서 넣기-->
+                    <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
+                  </span>
+                </div>
               </a>
-              <hr>
-              <div class="" style="font-size:20px;">
-                <p class="m-0 fw-normal" style="font-size:12px;">제목</p>
-                <p>{{ store.title }}</p>
+              <div class="card-body">
+                <a class="text-decoration-none text-black" href="{% url 'accounts:profile' store.user.pk %}">
+                  <div class="d-flex align-items-center">
+                    {% if store.user.image %}
+                      <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url({{ store.user.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+                    {% else %}
+                      <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png'); background-repeat:no-repeat; background-position:top -12px left -12px; background-size:cover; background-size:70px 100px"></div>
+                    {% endif %}
+                    <span class="ms-2 fs-6 ">{{ store.user.username }}</span></div>
+                </a>
+                <hr>
+                <div class="" style="font-size:20px;">
+                  <p class="m-0 fw-normal" style="font-size:12px;">제목</p>
+                  <p>{{ store.title }}</p>
+                </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
 
+        </div>
       </div>
     </div>
-  </div>
 
-{% endblock body %}
+    <hr>
+
+    <div class="mb-5 container">
+      <!-- 판매 -->
+      <h2 class="mb-5 ">판매 목록</h2>
+
+      <div class="container bg-success bg-opacity-25">
+        <div class="row m-0 w-100 justify-content-center">
+          {% for store in stores_sells %}
+            <div class="m-2 card col-xl-2 col-lg-3 col-md-4 col-6">
+              <a class="text-decoration-none text-black" href="{% url 'store:detail' store.pk %}">
+                <div class="image-box position-relative">
+                  {% if store.image %}
+                    <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url({{ store.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+                  {% else %}
+                    <div class="w-100 my-3 p-3 border border-3 bg-light" style="height:200px; background-image:url(https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+                  {% endif %}
+                  <span class="badge m-1 position-absolute bottom-0 end-0">
+                    <!-- 좋아요 구분해서 넣기-->
+                    <lord-icon src="https://cdn.lordicon.com/iwaotjbp.json" trigger="morph" style="width:45px;height:45px"></lord-icon>
+                  </span>
+                </div>
+              </a>
+              <div class="card-body">
+                <a class="text-decoration-none text-black" href="{% url 'accounts:profile' store.user.pk %}">
+                  <div class="d-flex align-items-center">
+                    {% if store.user.image %}
+                      <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url({{ store.user.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+                    {% else %}
+                      <div class="border border-3 border-danger rounded-circle" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/SI/SI_171.png'); background-repeat:no-repeat; background-position:top -12px left -12px; background-size:cover; background-size:70px 100px"></div>
+                    {% endif %}
+                    <span class="ms-2 fs-6 ">{{ store.user.username }}</span></div>
+                </a>
+                <hr>
+                <div class="" style="font-size:20px;">
+                  <p class="m-0 fw-normal" style="font-size:12px;">제목</p>
+                  <p>{{ store.title }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div> {% endcomment %}
+
+  {% endblock body %}

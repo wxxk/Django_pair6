@@ -131,7 +131,9 @@ def search(request):
     search = request.GET.get("search", "")
 
     search_list = all_data.filter(
-        Q(title__icontains=search) | Q(content__icontains=search)
+        Q(title__icontains=search)
+        | Q(content__icontains=search)
+        | Q(type__icontains=search)
     )
 
     buy_search_list = search_list.filter(buysell=1)
