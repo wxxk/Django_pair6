@@ -16,6 +16,7 @@
 .card-box:hover .card-image-front {
   visibility: visible;
   /* display: inline; */
-  transform: scale(2);
+  /* transform: scale(2); */
+  transform: scale(2) rotateY(720deg);
   transition: transform .5s;
 }
