@@ -4,55 +4,110 @@
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/accounts_profile.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin">
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 {% endblock css %}
 
 {% block body %}
   <!-- 개인정보 -->
-  <div class="container">
-    <div class="card h-auto">
-      <div class="card-header text-center">
-        <h3>{{ profile.username }}님의 페이지</h3>
+  {% comment %} <div class="container main">
+    <div class="col-8 m-auto d-flex" style="height:850px; background-image:url({% static 'images/Pokedex.png' %}); background-repeat:no-repeat; background-position:center; background-size:contain; background-size:105% 800px">
+      <div class="col-4 h-100 d-flex justify-content-between" style="margin-left:13.5%; margin-right:5%; padding-top:36.6%; transform: rotate(-3deg) skewX(-3deg);">
+        <div class="my-2 me-3">
+          {% if profile.image %}
+            <div class="profile-img border border-3 border-dark rounded-3" style="width:15.9286vw; height: 180px; background-image:url({{ profile.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+          {% else %}
+            <div class="profile-img border border-3 border-dark rounded-3" style="width:223px; height: 180px;  background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S11/S11_050.png?w=512'); background-repeat:no-repeat; background-position:top -55px left -100px; background-size:cover; background-size:400px 500px"></div>
+          {% endif %}
+        </div>
       </div>
-      <div class="card-body">
-        <div class="d-flex justify-content-center">
-          <div class="me-3">
-            {% if profile.image %}
-              <div class="profile-img border border-3 border-warning rounded-circle" style="width:100px; height: 100px; background-image:url({{ profile.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
-            {% else %}
-              <div class="profile-img border border-3 border-warning rounded-circle" style="width:100px; height: 100px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S11/S11_050.png?w=512'); background-repeat:no-repeat; background-position:top -25px left -65px; background-size:cover; background-size:200px 250px"></div>
-            {% endif %}
-          </div>
-          <div class="">
-            <h5 class="card-title">이름:
-              {{ profile.last_name }}{{ profile.first_name }}</h5>
-            <p class="card-text">이메일:
-              {{ profile.email }}</p>
-            팔로잉 :
-            <span id="followers-count">{{ profile.followings.all|length }}
-            </span>
-            | 팔로워 :
-            <span id="followings-count">{{ profile.followers.all|length }}
-            </span>
+
+      <div class="col-4" style="margin-left:8%; padding-top:32%; transform: rotate(-3deg) skewX(-3deg);">
+        <div class="p-1 px-3 profile-info" style="color:#a7c957; font-family: 'Do Hyeon', sans-serif;">
+          <h5 class="card-title" style="font-family: 'Do Hyeon', sans-serif;">이름:
+            {{ profile.last_name }}{{ profile.first_name }}</h5>
+          <p class="card-text my-1" style="font-family: 'Do Hyeon', sans-serif;">이메일:
+            {{ profile.email }}</p>
+          <div class="mb-2 d-flex justify-content-between align-items-start position-relative">
+            <div>
+              팔로잉 :
+              <span id="followers-count" style="font-family: 'Do Hyeon', sans-serif;">{{ profile.followings.all|length }}
+              </span>
+              | 팔로워 :
+              <span id="followings-count" style="font-family: 'Do Hyeon', sans-serif;">{{ profile.followers.all|length }}
+              </span>
+            </div>
             {% if request.user != profile %}
-              <form id="follow-form" data-user-id="{{ profile.pk }}">
+              <form class="position-absolute end-0" id="follow-form" data-user-id="{{ profile.pk }}">
                 {% csrf_token %}
                 {% if request.user in profile.followers.all %}
-                  <input class="btn border me-2" type="submit" value="Unfollow">
+                  <input class="btn btn-outline-success me-2 py-1" type="submit" value="Unfollow">
                 {% else %}
-                  <input class="btn border me-2" type="submit" value="Follow">
+                  <input class="btn btn-outline-success me-2 py-1" type="submit" value="Follow">
                 {% endif %}
               </form>
             {% endif %}
           </div>
         </div>
 
-        <div class="my-3">
-          <div class="row">
-            <div class="col-6 h-100">
-              <div class="card w-auto h-auto mt-3">
-                <div class="card-body">
-                  <h4 class="card-title mb-5 text-center fw-bold">작성한글</h4>
-                  {% for store in store_page %}
+        <div class="d-flex justify-content-between" style="margin-top:90%;">
+          <!-- Button Article modal -->
+          <button type="button" class="btn btn-outline-light p-0" style="width: 40%;" data-bs-toggle="modal" data-bs-target="#articleModal">
+            작성한<br>글
+          </button>
+
+          <!-- Button Comment modal -->
+          <button type="button" class="btn btn-outline-light mt-1 me-2 p-0" style="width: 45%;" data-bs-toggle="modal" data-bs-target="#CommentModal">
+            작성한<br>댓글
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+      {% if request.user == profile %}
+        <a class="btn btn-outline-danger me-2" href="{% url 'accounts:update' %}">정보수정</a>
+        <button type="button" class="btn btn-outline-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          회원탈퇴
+        </button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title m-0 fs-5" id="exampleModalLabel">탈퇴하시겠습니까?</h1>
+              </div>
+              <div class="modal-body text-start">
+                탈퇴된 계정은 복구할 수 없습니다.
+              </div>
+              <div class="modal-footer">
+                <form action="{% url 'accounts:delete' %}" method="POST">
+                  {% csrf_token %}
+                  <input class='btn btn-outline-danger' type="submit" value='탈퇴'>
+                </form>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">아니오</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Article Modal -->
+    <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="articleModalLabel">작성한 글</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card w-auto h-auto mt-3">
+              <div class="card-body">
+                {% if stores %}
+                  {% for store in stores %}
                     <div class="hover d-flex justify-content-between">
                       <p class="mb-0">{{ store.pk }}번
                         <a class="ellipsis card-text text-danger" href="{% url 'store:detail' store.pk %}">{{ store.title }}</a>
@@ -61,155 +116,276 @@
                     </div>
                     <hr>
                   {% endfor %}
-                </div>
-                <div class="row mt-2">
-                  <div class="col-12">
-                    <nav>
-                      <ul class="pagination justify-content-center">
-                        {% if store_page.has_previous %}
-                          <li class="page-item">
-                            <a class="page-link text-danger" href="?q={{store_page.previous_page_number}}">이전으로</a>
-                          </li>
-                        {% else %}
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#">이전으로</a>
-                          </li>
-                        {% endif %}
-                        <li class="page-item">
-                          <a class="page-link text-danger" href="#">{{store_page.number}}/{{store_page.paginator.num_pages}}</a>
-                        </li>
-                        {% if store_page.has_next %}
-                          <li class="page-item">
-                            <a class="page-link text-danger" href="?q={{store_page.next_page_number}}">다음으로</a>
-                          </li>
-                        {% else %}
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#">다음으로</a>
-                          </li>
-                        {% endif %}
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
+                {% else %}
+                  <p class="m-0 text-center">작성한 댓글이 없어요!</p>
+                {% endif %}
               </div>
             </div>
-            <div class="col-6 h-100">
-              <div class="card w-auto h-auto mt-3">
-                <div class="card-body">
-                  <h4 class="card-title mb-5 text-center fw-bold">작성한 댓글</h4>
-                  {% for comment in comments_page %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comment Modal -->
+    <div class="modal fade" id="CommentModal" tabindex="-1" aria-labelledby="CommentModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="CommentModalLabel">작성한 댓글</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="card w-auto h-auto mt-3">
+              <div class="card-body">
+                {% if comments %}
+                  {% for comment in comments %}
                     <div class="hover d-flex justify-content-between">
                       <a class="ellipsis card-text text-danger" href="{% url 'store:detail' comment.store.pk %}">{{ comment.content }}</a>
                       <p class='mx-2 my-0'>{{ comment.created_at }}</p>
                     </div>
                     <hr>
                   {% endfor %}
+                {% else %}
+                  <p class="m-0 text-center">작성한 댓글이 없어요!</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> {% endcomment %}
+
+  <div class="col-xxl-6 col-md-8 col-sm-10 col-12 m-auto my-3">
+    <div class="card bg-danger rounded-4" style="height:70vh;">
+      <div class="card-header py-3 d-flex align-items-start border-bottom border-4 border-dark">
+        <div class="mx-3 rounded-circle border border-5 position-relative" style="width:80px; height:80px; background-color:rgb(40, 165, 253)">
+          <div class="rounded-circle position-absolute" style="top:13px; left:3px; width:30px; height:12px; background-color:#fff; transform: rotate(-45deg);"></div>
+        </div>
+        <div class="mx-2 rounded-circle border border-5 position-relative" style="width:30px; height:30px; background-color:red">
+        </div>
+        <div class="mx-2 rounded-circle border border-5 position-relative" style="width:30px; height:30px; background-color:yellow">
+        </div>
+        <div class="mx-2 rounded-circle border border-5 position-relative" style="width:30px; height:30px; background-color:green">
+        </div>
+      </div>
+      
+      <div class="card-body px-5">
+        
+
+        <div class="my-3">
+          <div class="row">
+            <div class="col-6 h-100">
+              <!-- profile image -->
+              <div class="profile-image px-5 py-2 d-flex flex-column justify-content-center align-items-center w-100 bg-dark rounded-top">
+                <div class="">
+                  {% if profile.image %}
+                    <div class="profile-img border border-3 border-warning rounded-circle" style="width:150px; height: 150px; background-image:url({{ profile.image.url }}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+                  {% else %}
+                    <div class="profile-img border border-3 border-warning rounded-circle" style="width:100px; height: 100px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/wmimages/S/S11/S11_050.png?w=512'); background-repeat:no-repeat; background-position:top -25px left -65px; background-size:cover; background-size:200px 250px"></div>
+                  {% endif %}
                 </div>
-                <div class="row mt-2">
-                  <div class="col-12">
-                    <nav>
-                      <ul class="pagination justify-content-center">
-                        {% if comments_page.has_previous %}
-                          <li class="page-item">
-                            <a class="page-link text-danger" href="?p={{comments_page.previous_page_number }}">이전으로</a>
-                          </li>
-                        {% else %}
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#">이전으로</a>
-                          </li>
-                        {% endif %}
-                        <li class="page-item">
-                          <a class="page-link text-danger" href="#">{{comments_page.number}}/{{comments_page.paginator.num_pages}}</a>
-                        </li>
-                        {% if comments_page.has_next %}
-                          <li class="page-item">
-                            <a class="page-link text-danger" href="?p={{comments_page.next_page_number }}">다음으로</a>
-                          </li>
-                        {% else %}
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#">다음으로</a>
-                          </li>
-                        {% endif %}
-                      </ul>
-                    </nav>
-                  </div>
+              </div>
+              <div class="px-4 pb-3 w-100 rounded-bottom d-flex justify-content-between align-items-center" style="background-color:lightgrey;">
+                <div class="mx-2 rounded-circle border border-5 position-relative" style="width:45px; height:45px; background-color:red">
+                </div>
+                <div>
+                  <lord-icon src="https://cdn.lordicon.com/bwhjesak.json" trigger="morph" style="width:60px;height:60px"></lord-icon>
                 </div>
               </div>
             </div>
-            <div class="d-flex justify-content-center mt-3">
-              {% if request.user == profile %}
-                <a class="btn btn-outline-danger me-2" href="{% url 'accounts:update' %}">정보수정</a>
-                <button type="button" class="btn btn-outline-danger mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  회원탈퇴
-                </button>
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title m-0 fs-5" id="exampleModalLabel">탈퇴하시겠습니까?</h1>
-                      </div>
-                      <div class="modal-body text-start">
-                        탈퇴된 계정은 복구할 수 없습니다.
-                      </div>
-                      <div class="modal-footer">
-                        <form action="{% url 'accounts:delete' %}" method="POST">
-                          {% csrf_token %}
-                          <input class='btn btn-outline-danger' type="submit" value='탈퇴'>
-                        </form>
-                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">아니오</button>
+
+            <div class="col-6 h-100 d-flex flex-column justify-content-between">
+              <!-- profile info -->
+              <div class="card p-3 bg-dark rounded-2" style="border:20px solid lightgrey; color:#a7c957; font-family: 'Do Hyeon', sans-serif;">
+                <h5 class="card-title" style="font-family: 'Do Hyeon', sans-serif;">이름:
+                  {{ profile.last_name }}{{ profile.first_name }}</h5>
+                <p class="card-text my-1" style="font-family: 'Do Hyeon', sans-serif;">이메일:
+                  {{ profile.email }}</p>
+                <div class="mb-2 d-flex justify-content-between align-items-start position-relative">
+                  <div>
+                    팔로잉 :
+                    <span id="followers-count" style="font-family: 'Do Hyeon', sans-serif;">{{ profile.followings.all|length }}
+                    </span>
+                    | 팔로워 :
+                    <span id="followings-count" style="font-family: 'Do Hyeon', sans-serif;">{{ profile.followers.all|length }}
+                    </span>
+                  </div>
+                  {% if request.user != profile %}
+                    <form class="position-absolute end-0" id="follow-form" data-user-id="{{ profile.pk }}">
+                      {% csrf_token %}
+                      {% if request.user in profile.followers.all %}
+                        <input class="btn btn-outline-success me-2 py-1" type="submit" value="Unfollow">
+                      {% else %}
+                        <input class="btn btn-outline-success me-2 py-1" type="submit" value="Follow">
+                      {% endif %}
+                    </form>
+                  {% endif %}
+                </div>
+              </div>
+
+              <!-- articles, comments buttons -->
+              <div class="my-5 p-3 d-flex justify-content-between">
+                <div class="d-flex justify-content-evenly">
+                  <!-- Button Article modal -->
+                  <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#articleModal">
+                    작성한<br>글
+                  </button>
+        
+                  <!-- Button Comment modal -->
+                  <button type="button" class="mx-2 btn btn-dark" data-bs-toggle="modal" data-bs-target="#CommentModal">
+                    작성한<br>댓글
+                  </button>
+                </div>
+
+                <div class="d-flex justify-content-center aling-items-center">
+                  {% if request.user == profile %}
+                    <a class="btn btn-dark d-flex align-items-center" href="{% url 'accounts:update' %}">정보수정</a>
+                    <button type="button" class="btn btn-dark mx-2 h-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      회원탈퇴
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title m-0 fs-5" id="exampleModalLabel">탈퇴하시겠습니까?</h1>
+                          </div>
+                          <div class="modal-body text-start">
+                            탈퇴된 계정은 복구할 수 없습니다.
+                          </div>
+                          <div class="modal-footer">
+                            <form action="{% url 'accounts:delete' %}" method="POST">
+                              {% csrf_token %}
+                              <input class="btn btn-dark" type="submit" value='탈퇴'>
+                            </form>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">아니오</button>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  {% endif %}
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article Modal -->
+  <div class="modal fade" id="articleModal" tabindex="-1" aria-labelledby="articleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="articleModalLabel">작성한 글</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card w-auto h-auto mt-3">
+            <div class="card-body">
+              {% if stores %}
+                {% for store in stores %}
+                  <div class="hover d-flex justify-content-between">
+                    <p class="mb-0">{{ store.pk }}번
+                      <a class="ellipsis card-text text-danger" href="{% url 'store:detail' store.pk %}">{{ store.title }}</a>
+                    </p>
+                    <p class='mx-2 my-0'>{{ store.created_at }}</p>
+                  </div>
+                  <hr>
+                {% endfor %}
+              {% else %}
+                <p class="m-0 text-center">작성한 댓글이 없어요!</p>
               {% endif %}
             </div>
           </div>
         </div>
-
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+        </div>
       </div>
     </div>
+  </div>
 
-    <!-- script-->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-      const form = document.querySelector('#follow-form')
-      const csrftoken = document
-        .querySelector('[name=csrfmiddlewaretoken]')
-        .value
+  <!-- Comment Modal -->
+  <div class="modal fade" id="CommentModal" tabindex="-1" aria-labelledby="CommentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="CommentModalLabel">작성한 댓글</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card w-auto h-auto mt-3">
+            <div class="card-body">
+              {% if comments %}
+                {% for comment in comments %}
+                  <div class="hover d-flex justify-content-between">
+                    <a class="ellipsis card-text text-danger" href="{% url 'store:detail' comment.store.pk %}">{{ comment.content }}</a>
+                    <p class='mx-2 my-0'>{{ comment.created_at }}</p>
+                  </div>
+                  <hr>
+                {% endfor %}
+              {% else %}
+                <p class="m-0 text-center">작성한 댓글이 없어요!</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        form
-        .addEventListener('submit', function (event) {
-          event.preventDefault()
+  <!-- script-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const form = document.querySelector('#follow-form')
+    const csrftoken = document
+      .querySelector('[name=csrfmiddlewaretoken]')
+      .value
 
-          const userId = event
-            .target
-            .dataset
-            .userId
+      form
+      .addEventListener('submit', function (event) {
+        event.preventDefault()
 
-            axios({
-              method: 'post',
-              url: `/accounts/${userId}/follow/`,
-              headers: {
-                'X-CSRFToken': csrftoken
-              }
-            })
-            .then((response) => {
-              const isFollowed = response.data.is_followed
-              const followBtn = document.querySelector('#follow-form > input[type=submit]')
-              if (isFollowed === true) {
-                followBtn.value = 'Unfollow'
-              } else {
-                followBtn.value = 'Follow'
-              }
-              const followersCountTag = document.querySelector('#followers-count')
-              const followingsCountTag = document.querySelector('#followings-count')
-              const followersCount = response.data.followers_count
-              const followingsCount = response.data.followings_count
+        const userId = event
+          .target
+          .dataset
+          .userId
 
-              followersCountTag.innerText = followersCount
-              followingsCountTag.innerText = followingsCount
-            })
+          axios({
+            method: 'post',
+            url: `/accounts/${userId}/follow/`,
+            headers: {
+              'X-CSRFToken': csrftoken
+            }
+          })
+          .then((response) => {
+            const isFollowed = response.data.is_followed
+            const followBtn = document.querySelector('#follow-form > input[type=submit]')
+            if (isFollowed === true) {
+              followBtn.value = 'Unfollow'
+            } else {
+              followBtn.value = 'Follow'
+            }
+            const followersCountTag = document.querySelector('#followers-count')
+            const followingsCountTag = document.querySelector('#followings-count')
+            const followersCount = response.data.followers_count
+            const followingsCount = response.data.followings_count
 
-        })
-    </script>
-  {% endblock body %}
+            followersCountTag.innerText = followersCount
+            followingsCountTag.innerText = followingsCount
+          })
+
+      })
+  </script>
+{% endblock body %}
