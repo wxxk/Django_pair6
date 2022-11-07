@@ -147,3 +147,33 @@ def search(request):
     }
 
     return render(request, "store/search.html", context)
+
+
+def type(request, type, num):
+    type_image = {
+        "Grass": "풀",
+        "Fire": "불",
+        "Water": "물",
+        "Lightning": "전기",
+        "Psychic": "에스퍼",
+        "Fighting": "격투",
+        "Darkness": "악",
+        "Metal": "강철",
+        "Fairy": "페어리",
+        "Dragon": "드레곤",
+        "Colorless": "노말",
+    }
+
+    stores_buys = Store.objects.filter(type=type, buysell=True).order_by(
+        "cost", "created_at"
+    )[:5][::-1]
+    stores_sells = Store.objects.filter(type=type, buysell=False).order_by(
+        "cost", "created_at"
+    )[:5]
+    context = {
+        "stores_buys": stores_buys,
+        "stores_sells": stores_sells,
+        "num": num,
+        "type": type_image[type],
+    }
+    return render(request, "store/type.html", context)

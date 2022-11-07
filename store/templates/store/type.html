@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% block body %}
+
+  <div class="container">
+    <div class="d-flex">
+      <div class="col-6 p-0 d-flex flex-column align-items-center">
+        <div class="col-8 my-3 p-3 border border-3 bg-light" style="height:400px; background-image:url('{% get_static_prefix%}images/{{num}}.png');
+          background-repeat:no-repeat; background-position:center; background-size:contain;"></div>
+
+        <div class="col-8 p-3 border border-3">
+          <div class="d-flex justify-content-center align-items-center">
+            <h2 class="my-4">
+              {{ type }}
+              타입</h2>
+          </div>
+          <div class="d-flex justify-content-between">
+            <a class="btn btn-danger m-2 w-100" href="{% url 'store:create' %}">입양</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 수정하기!!!! -->
+      <div class="col-5 p-0 bg-light">
+        <div class="h-50 bg-primary bg-opacity-25 d-flex flex-column justify-content-end">
+          {% for store in stores_buys %}
+            <div class="m-2 p-1 d-flex justify-content-between align-items-center bg-light rounded-2">
+              <div class="ps-3 fw-bold">
+                구매자:
+                {{ store.user.username }}
+              </div>
+              <div>
+                {{ store.cost }}원
+              </div>
+              <div>
+                <a class="btn btn-danger" href="{% url 'store:detail' store.pk %}">구매</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="h-50 bg-danger bg-opacity-25 d-flex flex-column">
+          {% for store in stores_sells %}
+            <div class="m-2 p-1 d-flex justify-content-between align-items-center bg-light rounded-2">
+              <div class="ps-3 fw-bold">
+                판매자:
+                {{ store.user.username }}
+              </div>
+              <div>
+                {{ store.cost }}원
+              </div>
+              <div>
+                <a class="btn btn-primary" href="{% url 'store:detail' store.pk %}">판매</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock body %}
