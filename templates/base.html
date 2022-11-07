@@ -173,6 +173,34 @@
     </nav>
 
     {% block body %}{% endblock body %}
+
+    <footer class="py-5 d-flex flex-column text-bg-dark bg-black">
+      <div class="px-5">
+        <h1>포켓몬 연구소, Inc.</h1>
+      </div>
+      <div class="px-5 py-3 d-flex justify-content-between bg-dark">
+        <div>
+          <p>(주)포켓몬연구소</p>
+          <p class="m-0">팀장: 이상욱, 팀원: 이성훈, 이우열</p>
+        </div>
+        <div class="d-flex">
+          <a href="https://github.com/wxxk">
+            <div class="mx-5 rounded-circle" style="width:50px; height:50px; background-image:url({% static 'images/jam.png' %}); background-repeat:no-repeat; background-position:center; background-size:contain; background-color:#219ebc;"></div>
+          </a>
+          <a href="https://github.com/danny7128">
+            <div class="mx-5 rounded-circle" style="width:50px; height:50px; background-image:url({% static 'images/da.png' %}); background-repeat:no-repeat; background-position:center; background-size:cover; background-color:#e5e5e5;"></div>
+          </a>
+          <a href="https://github.com/w00ye0l">
+            <div class="mx-5 rounded-circle" style="width:50px; height:50px; background-image:url({% static 'images/pi.png' %}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
+          </a>
+        </div>
+      </div>
+      <div class="px-5 pt-2">
+        <p class="m-0">©2022 Pokémon. ©1995-2022 Nintendo/Creatures Inc./GAME FREAK inc.</p>
+        <p class="m-0">©Nintendo, Creatures, GAME FREAK, TV Tokyo, ShoPro, JR Kikaku. ©Pokémon. ©1998-2020 PIKACHU PROJECT.</p>
+        <p class="m-0">포켓몬스터, 포켓몬, Pokémon, 몬스터볼, Nintendo Switch, Nintendo 3DS, Nintendo DS는 Nintendo의 상표입니다.</p>
+      </div>
+    </footer>
   </body>
 
 </html>

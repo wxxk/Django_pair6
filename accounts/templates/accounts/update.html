@@ -2,14 +2,16 @@
 {% load django_bootstrap5 %}
 
 {% block body %}
-  <div class="container">
-    <h1 class="my-3">UPDATE</h1>
+  <div class="col-12 col-md-10 col-lg-6 col-xl-4 m-auto my-5 p-4 bg-danger bg-opacity-50 rounded-2">
+    <h1 class="my-4 mb-5">회원 정보 수정</h1>
     <div class="border border-3 rounded p-3">
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <a class="btn btn-outline-danger" href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
-        <input class="btn btn-outline-danger" type="submit" value="정보수정">
+        <div class="d-flex justify-content-end">
+          <a class="mx-2 btn btn-primary" href="{% url 'accounts:change_password' %}">비밀번호 변경</a>
+          <input class="btn btn-primary" type="submit" value="정보수정">
+        </div>
       </div>
     </form>
   </div>

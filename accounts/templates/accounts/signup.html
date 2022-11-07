@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% block body %}
-  <div class="container">
+  <div class="col-12 col-md-10 col-lg-6 col-xl-4 m-auto my-5 p-4 bg-danger bg-opacity-50 rounded-2">
     <h1 class="my-3">회원가입</h1>
     <div class="border border-3 p-3 rounded">
       <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input class="btn btn-outline-danger" type="submit">
+        <div class="d-flex justify-content-end">
+          <input class="btn btn-primary" type="submit">
+        </div>
       </form>
     </div>
   </div>
