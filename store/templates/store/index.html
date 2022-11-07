@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% load static %}
+
+{% block title %}
+  <title>스토어</title>
+{% endblock title %}
+
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/store_index_style.css' %}">
 {% endblock css %}
 
 {% block body %}
-
   <body>
     <div class="d-flex justify-content-center">
       <h1 class="mt-4 text-center display-inline position-relative">GOTCHA!
