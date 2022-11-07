@@ -2,7 +2,7 @@
 {% load django_bootstrap5 %}
 
 {% block body %}
-  <div class="container">
+  <div class="container" style="margin-bottom:22px;">
     <div class="d-flex">
       <div class="col-6 p-0 d-flex flex-column align-items-center">
         {% if store.image %}
@@ -49,7 +49,7 @@
 
       <!-- 수정하기!!!! -->
 
-      <div class="col-5 p-0 bg-light">
+      <div class="col-5 p-4 bg-light">
         <h3>댓글</h3>
         {% if request.user.is_authenticated %}
           <form id="comment-form" data-store-id="{{ store.pk }}" class="my-3">
@@ -66,9 +66,9 @@
 
         <div id="comments">
           {% for comment in comments %}
-            <div class="my-2 p-3 bg-light rounded-3">
-              <p class="d-flex fw-bold align-items-center">
-                {{ comment.user.username }}님
+            <div class="my-2 p-3 bg-warning bg-opacity-25 rounded-3">
+              <p class="d-flex fw-bold justify-content-between align-items-center">
+                <span>{{ comment.user.username }}님</span>
                 <a id="delete_btn" class="btn btn-outline-dark mx-2 py-0" href="{% url 'store:comment_delete' store.pk comment.pk %}">삭제</a>
               </p>
               <p class="m-0">
@@ -150,9 +150,9 @@
             // content.innerText = `${response.data.content}`
             // comments.append(username, content)
             comments.insertAdjacentHTML('beforeend', `
-            <div class="my-2 p-3 bg-light rounded-3">
-              <p class="d-flex fw-bold align-items-center">
-                <span id="username">${response.data.userName}</span>님
+            <div class="my-2 p-3 bg-warning bg-opacity-25 rounded-3">
+              <p class="d-flex fw-bold justify-content-between align-items-center">
+                <span id="username">${response.data.userName}님</span>
                 <a class="btn btn-outline-dark mx-2 py-0" href="/store/${storeId}/${response.data.comment_pk}/delete/">삭제</a>
               </p>
               <p class="m-0" id="content">
