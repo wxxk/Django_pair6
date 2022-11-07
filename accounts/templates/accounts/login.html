@@ -2,14 +2,16 @@
 {% load django_bootstrap5 %}
 
 {% block body %}
-  <div class="container">
+  <div class="col-12 col-md-10 col-lg-6 col-xl-4 m-auto my-5 p-4 bg-danger bg-opacity-50 rounded-2">
     <h1 class="my-3">로그인</h1>
     <div class="border border-3 p-3 rounded">
       <form action="" method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <input class="btn btn-outline-danger" type="submit" value="로그인">
-        <a class="btn btn-outline-danger" href="{% url 'accounts:signup'%}">회원가입</a>
+        <div class="d-flex justify-content-end">
+          <input class="btn btn-primary mx-2" type="submit" value="로그인">
+          <a class="btn btn-primary" href="{% url 'accounts:signup'%}">회원가입</a>
+        </div>
       </form>
     </div>
   </div>

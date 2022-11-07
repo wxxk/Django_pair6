@@ -2,27 +2,26 @@
 {% load django_bootstrap5 %}
 
 {% block body %}
-  <div class="container">
+  <div class="col-12 col-md-10 col-lg-6 col-xl-4 m-auto my-5 p-4 bg-danger bg-opacity-50 rounded-2">
     <div class="d-flex flex-column justify-content-center align-items-center">
-
       {% if request.resolver_match.url_name == 'create' %}
         <h1>게시글 작성</h1>
       {% else %}
         <h1>게시글 수정</h1>
       {% endif %}
 
-      <form class="col-8" action="" method="POST" enctype="multipart/form-data">
+      <form class="w-100" action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-floating my-3">
           <input class="form-control" placeholder="title" id="floatingText" name="title" value="{{ store.title }}"></input>
-          <label for="floatingText">제목</label>
+          <label for="floatingText">카드 이름</label>
         </div>
 
         <div class="row g-2 my-3">
           <div class="col-md">
             <div class="form-floating">
               <input type="number" class="form-control" id="floatingInputGrid" placeholder="금액" name="cost" value="{{ store.cost }}">
-              <label for="floatingInputGrid">금액</label>
+              <label for="floatingInputGrid">금액(원)</label>
             </div>
           </div>
           <div class="col-md">
@@ -47,57 +46,64 @@
         </div>
 
         <!-- 타입 -->
-        <div class="d-flex justify-content start">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Grass" id="type1" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type1.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Fire" id="type2" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type2.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Water" id="type3" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type3.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Lightning" id="type4" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type4.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Psychic" id="type5" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type5.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Fighting" id="type6" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type6.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Darkness" id="type7" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type7.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Metal" id="type8" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type8.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Fairy" id="type11" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type11.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Dragon" id="type10" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type10.png')">
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="type" value="Colorless" id="type9" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type9.png')">
+        <div class="p-3 mb-3 d-flex flex-column justify-content start border border-1 rounded-2">
+          <label class="mb-2">타입</label>
+          <div class="d-flex justify-content-between">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Grass" id="type1" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type1.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Fire" id="type2" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type2.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Water" id="type3" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type3.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Lightning" id="type4" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type4.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Psychic" id="type5" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type5.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Fighting" id="type6" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type6.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Darkness" id="type7" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type7.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Metal" id="type8" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type8.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Fairy" id="type11" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type11.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Dragon" id="type10" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type10.png')">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="type" value="Colorless" id="type9" style="width:40px; height:40px; background-image:url('https://cards.image.pokemonkorea.co.kr/data/images/symbol/type9.png')">
+            </div>
           </div>
         </div>
 
         <div class="border border-1 border-grey rounded p-3">
-          <p class="mb-0 text-secondary">썸네일 변경</p>
+          {% if request.resolver_match.url_name == 'create' %}
+            <p class="mb-0">썸네일</p>
+          {% else %}
+            <p class="mb-0">썸네일 변경</p>
+          {% endif %}
           <p class="mb-0">{{store_form.image}}</p>
         </div>
 
         <div class="border border-1 border-grey rounded p-3 mt-3">
-          <p class="mb-0 text-secondary">사진 변경</p>
+          <p class="mb-0">사진 변경</p>
           <p>{{store_form.thumbnail}}</p>
         </div>
 
         <div class="d-flex justify-content-end my-3">
           {% if request.resolver_match.url_name == 'create' %}
-            <button class="btn btn-outline-danger" type="submit">글 작성</button>
+            <button class="btn btn-danger" type="submit">글 작성</button>
           {% else %}
-            <button class="btn btn-outline-danger" type="submit">글 수정</button>
+            <button class="btn btn-danger" type="submit">글 수정</button>
           {% endif %}
         </div>
       </form>
