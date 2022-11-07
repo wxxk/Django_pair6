@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% load static %}
-
+{% block title %}
+  <title>카드 연구소</title>
+{% endblock title %}
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/community_index.css' %}">
 {% endblock css %}
