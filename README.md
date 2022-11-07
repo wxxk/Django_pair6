@@ -4,11 +4,15 @@
 
 ##### 팀명: 포켓몬 연구소
 
-##### 팀원 : 1기 1회차 이상욱 @wxxk
+<a href="https://github.com/wxxk/Django_pair6/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=wxxk/Django_pair6" />
+</a>
 
-##### 		   1기 1회차 이우열 @w00ye0l
+##### 팀장 : 1기 1회차 이상욱 @wxxk
 
-##### 		   1기 1회차 이상훈 @danny7128
+##### 		   팀원 : 1기 2회차 이우열 @w00ye0l
+
+##### 		   팀원 : 1기 3회차 이상훈 @danny7128
 
 
 
