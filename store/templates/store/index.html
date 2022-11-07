@@ -8,6 +8,12 @@
 {% block body %}
 
   <body>
+    <div class="d-flex justify-content-center">
+      <h1 class="mt-4 text-center display-inline position-relative">GOTCHA!
+        <a class="create-btn btn btn-outline-danger position-absolute" href="{% url 'store:create'%}">입양</a>
+      </h1>
+      
+    </div>
     <div class="box">
     <ul class="menu p-0">
       <div class="toggle">
@@ -15,67 +21,67 @@
       </div>
 
       <li style="--i:0;--clr:#3DFF92;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Grass' 1 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type1.png" alt="">
         </a>
       </li>
 
       <li style="--i:1;--clr:#FF5050;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Fire' 2 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type2.png" alt="">
         </a>
       </li>
 
       <li style="--i:2;--clr:#00EBFF;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Water' 3 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type3.png" alt="">
         </a>
       </li>
 
       <li style="--i:3;--clr:#FFEB46;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Lightning' 4 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type4.png" alt="">
         </a>
       </li>
 
       <li style="--i:4;--clr:#800080;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Psychic' 5 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type5.png" alt="">
         </a>
       </li>
 
       <li style="--i:5;--clr:#FF8200">
-        <a href="#">
+        <a href="{% url 'store:type' 'Fighting' 6 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type6.png" alt="">
         </a>
       </li>
 
       <li style="--i:6;--clr:#000D86;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Darkness' 7 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type7.png" alt="">
         </a>
       </li>
 
       <li style="--i:7;--clr:#606060;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Metal' 8 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type8.png" alt="">
         </a>
       </li>
 
       <li style="--i:8;--clr:#969696;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Colorless' 9 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type9.png" alt="">
         </a>
       </li>
 
       <li style="--i:9;--clr:#FAEB78;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Dragon' 10 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type10.png" alt="">
         </a>
       </li>
 
       <li style="--i:10;--clr:#FF3CBB;">
-        <a href="#">
+        <a href="{% url 'store:type' 'Fairy' 11 %}">
           <img src="https://cards.image.pokemonkorea.co.kr/data/images/symbol/type11.png" alt="">
         </a>
       </li>

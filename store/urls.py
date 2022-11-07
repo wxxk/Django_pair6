@@ -6,6 +6,7 @@ app_name = "store"
 urlpatterns = [
     path("", views.index, name="index"),
     path("create/", views.create, name="create"),
+    path("<str:type>/<int:num>/type/", views.type, name="type"),
     path("<int:pk>/detail/", views.detail, name="detail"),
     path("<int:pk>/update/", views.update, name="update"),
     path("<int:pk>/delete/", views.delete, name="delete"),
