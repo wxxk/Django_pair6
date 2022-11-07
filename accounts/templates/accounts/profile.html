@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
 {% load static %}
-
+{% block title %}
+  <title>프로필</title>
+{% endblock title %}
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/accounts_profile.css' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
