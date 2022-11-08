@@ -522,9 +522,7 @@
 
 ---
 
-<video src="../../Documents/Bandicam/bandicam 2022-11-07 15-15-46-683.mp4"></video>
-
-
+![bandicam-2022-11-07-15-15-46-683](README.assets/bandicam-2022-11-07-15-15-46-683.gif)
 
 ### 배운점
 
